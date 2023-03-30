@@ -2,6 +2,8 @@
 // **** CONTROLLERS ***
 //Aca deberiamos de importar nuestros controllers
 
+const createClient = require("../controllers/client/createClient");
+
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
   const { id } = req.query;
@@ -19,9 +21,10 @@ const getClients = async (req, res) => {
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postClient = async (req, res) => {
-  const { name, email, phone, vip, enable, saleman } = req.body;
+  const data = req.body;
   try {
-    //Crear/Agregar nuevo cliente
+    const response = await createClient(data)
+    res.status(201).json(response)
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
