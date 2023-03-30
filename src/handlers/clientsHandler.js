@@ -1,6 +1,7 @@
 //Aca deberiamos de importar nuestros controllers
 // **** CONTROLLERS ***
 //Aca deberiamos de importar nuestros controllers
+const getAllClients = require('../controllers/clients/getAllClients.js')
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
@@ -8,9 +9,13 @@ const getClients = async (req, res) => {
   try {
     if (id) {
       //Si existe un cliente con ese nombre que devuelva unicamente a ese cliente
+      const allClients = await getAllClients();
+      const client = allClients.filter((ele) => ele.id === id)
+      res.json(client);
     } else {
       //Funcion a llamar para traer todos los clientes
-      res.send("hola joseph");
+      const allClients = await getAllClients();
+      res.json(allClients);
     }
   } catch (error) {
     res.status(400).json({ error: "Client Not Found" });
