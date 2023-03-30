@@ -6,6 +6,7 @@
 const getActivity = async (req, res) => {
   try {
     //Controller para obtener actividades
+    res.send("Hola soy activityRouter");
   } catch (error) {
     res.status(400).json({ error: "Activity Not Found" });
   }
