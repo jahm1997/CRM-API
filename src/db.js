@@ -82,7 +82,7 @@ Boss.hasOne(Product, { through: Boss });
 Salesman.hasOne(Feedback, { through: Salesman });
 
 llenar(Boss, Salesman, Client).then(() => {
-  console.log("se lleno");
+  console.log("se ejecutó la linea 84");
 });
 
 module.exports = {
