@@ -1,11 +1,12 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize} = require('sequelize');
+
 
 module.exports = (database) => {
     database.define('boss', {
         id: {
             type: DataTypes.UUID,
-            allowNull: false,
-            primaryKey: true
+            primaryKey: true,
+            defaultValue: DataTypes.UUIDV4,
         },
         name: DataTypes.STRING,
         company: DataTypes.STRING,

@@ -6,6 +6,7 @@ module.exports = (database) => {
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
     },
     score: {
       type: DataTypes.INTEGER,

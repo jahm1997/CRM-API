@@ -8,6 +8,7 @@ module.exports = (database) => {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
       },
       name: DataTypes.STRING,
       quantity: DataTypes.INTEGER,
