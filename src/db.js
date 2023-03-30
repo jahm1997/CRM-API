@@ -10,14 +10,14 @@ const product = require("./models/product");
 const saleProduct = require("./models/saleProduct");
 const salesman = require("./models/salesman");
 const llenar = require("./controllers/utils/llenar");
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`,
   {
     logging: false,
     native: false,
-    force: false 
+    force: false,
   }
 );
 const basename = path.basename(__filename);
@@ -81,7 +81,9 @@ Boss.hasOne(Product, { through: Boss });
 
 Salesman.hasOne(Feedback, { through: Salesman });
 
-llenar(Boss,Salesman,Client).then(()=>{console.log('se lleno');});
+llenar(Boss, Salesman, Client).then(() => {
+  console.log("se lleno");
+});
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
