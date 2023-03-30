@@ -2,9 +2,8 @@
 // **** CONTROLLERS ***
 //Aca deberiamos de importar nuestros controllers
 const getAllClients = require("../controllers/clients/getAllClients.js");
-
+const updateClient = require("../controllers/clients/putClient.js");
 const createClient = require("../controllers/client/createClient");
-
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
   const { id } = req.query;
@@ -30,8 +29,8 @@ const getClients = async (req, res) => {
 const postClient = async (req, res) => {
   const data = req.body;
   try {
-    const response = await createClient(data)
-    res.status(201).json(response)
+    const response = await createClient(data);
+    res.status(201).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -39,16 +38,10 @@ const postClient = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putClient = async (req, res) => {
+  const { id, name, email, phone, vip, enable, salesmanId } = req.body;
   try {
-    //
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-//----------------------------------- HANDLERS DELETE -----------------------------------\\
-const deleteClient = async (req, res) => {
-  try {
-    //
+    updateClient({ id, name, email, phone, vip, enable, salesmanId });
+    res.status(200).send("Datos actualizados");
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -58,5 +51,4 @@ module.exports = {
   getClients,
   postClient,
   putClient,
-  deleteClient,
 };
