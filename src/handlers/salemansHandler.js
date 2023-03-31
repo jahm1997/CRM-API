@@ -6,11 +6,14 @@ const modifySalesman = require("../controllers/salesman/modifySalesman");
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getSalemans = async (req, res) => {
-  const { id } = req.query;
+  const { id, name, address, email, phone, enable } = req.query;
   try {
-    if (id) {
+    if (id || name || address || email || phone || enable) {
+      const variable = id || name || address || email || phone || enable;
       const allSalesman = await getAllSalesman();
-      const salesman = allSalesman.filter((ele) => ele.id === id);
+      const salesman = allSalesman.filter(
+        (ele) => ele[propiedad[0]] === variable
+      );
       res.json(salesman);
       // res.send('hola tengo id')
     } else {
@@ -27,7 +30,6 @@ const getSalemans = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postSaleman = async (req, res) => {
   const data = req.body;
-  console.log(data);
   try {
     const response = await createSalesman(data);
     res.status(201).json(response);
