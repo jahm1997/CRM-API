@@ -25,4 +25,4 @@ const updateSalesman = async ({
   );
 };
 
-module.exports = updateProduct;
+module.exports = updateSalesman;

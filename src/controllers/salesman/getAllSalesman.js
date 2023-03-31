@@ -1,6 +1,8 @@
 const { Salesman } = require("../../db.js");
 
-module.exports = async () => {
-  const salesman = await Salesman.findAll();
-  return salesman;
+const getAllSalesman = async () => {
+  const allSalesman = await Salesman.findAll();
+  return allSalesman;
 };
+
+module.exports = getAllSalesman;
