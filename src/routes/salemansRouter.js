@@ -7,7 +7,7 @@ const {
 
 const salemansRouter = Router();
 
-salemansRouter.get("/salesmans", getSalemans);
+salemansRouter.get("/salesman", getSalemans);
 salemansRouter.post("/salesman", postSaleman);
 salemansRouter.put("/salesman", putSaleman);
 

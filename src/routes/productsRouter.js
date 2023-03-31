@@ -7,8 +7,8 @@ const {
 
 const productsRouter = Router();
 
-productsRouter.get("/products", getProducts);
-productsRouter.post("/products", postProduct);
-productsRouter.put("/products", putProduct);
+productsRouter.get("/product", getProducts);
+productsRouter.post("/product", postProduct);
+productsRouter.put("/product", putProduct);
 
 module.exports = productsRouter;

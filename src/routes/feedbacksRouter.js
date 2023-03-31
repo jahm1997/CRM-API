@@ -8,7 +8,7 @@ const {
 
 const feedbacksRouter = Router();
 
-feedbacksRouter.get("/feedbacks", getFeedbacks);
+feedbacksRouter.get("/feedback", getFeedbacks);
 feedbacksRouter.post("/feedback", postFeedback);
 feedbacksRouter.put("/feedback", putFeedback);
 feedbacksRouter.delete("/feedback", deleteFeedback);

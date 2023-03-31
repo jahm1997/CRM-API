@@ -7,7 +7,7 @@ const {
 
 const clientsRouter = Router();
 
-clientsRouter.get("/clients", getClients);
+clientsRouter.get("/client", getClients);
 clientsRouter.post("/client", postClient);
 clientsRouter.put("/client", putClient);
 
