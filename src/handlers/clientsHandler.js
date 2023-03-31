@@ -13,9 +13,10 @@ const getClients = async (req, res) => {
       const allClients = await getAllClients();
       const client = allClients.filter((ele) => ele.id === id);
       res.json(client);
+      // res.send('hola tengo id')
     } else {
       //Funcion a llamar para traer todos los clientes
-      res.send("Hola soy client");
+      // res.send("Hola soy client");
       const allClients = await getAllClients();
       res.json(allClients);
     }

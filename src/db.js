@@ -81,9 +81,9 @@ Boss.hasOne(Product, { through: Boss });
 
 Salesman.hasOne(Feedback, { through: Salesman });
 
-llenar(Boss, Salesman, Client).then(() => {
-  console.log("se lleno");
-});
+// llenar(Boss, Salesman, Client).then(() => {
+//   console.log("Se ha creado un Boss, Salesman y Client en la linea 84 de db.js");
+// });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
