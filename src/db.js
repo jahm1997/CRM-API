@@ -82,7 +82,9 @@ Boss.hasOne(Product, { through: Boss });
 Salesman.hasOne(Feedback, { through: Salesman });
 
 // llenar(Boss, Salesman, Client).then(() => {
-//   console.log("Se ha creado un Boss, Salesman y Client en la linea 84 de db.js");
+//   console.log(
+//     "Se ha creado un Boss, Salesman y Client en la linea 84 de db.js"
+//   );
 // });
 
 module.exports = {

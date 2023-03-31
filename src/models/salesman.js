@@ -11,6 +11,15 @@ module.exports = (database) => {
     name: {
       type: DataTypes.STRING,
     },
+    address: {
+      type: DataTypes.STRING,
+    },
+    email: {
+      type: DataTypes.STRING,
+    },
+    phone: {
+      type: DataTypes.STRING,
+    },
     enable: {
       type: DataTypes.BOOLEAN,
     },

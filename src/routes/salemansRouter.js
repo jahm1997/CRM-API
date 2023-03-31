@@ -8,9 +8,9 @@ const {
 
 const salemansRouter = Router();
 
-salemansRouter.get("/salemans", getSalemans);
-salemansRouter.post("/saleman", postSaleman);
-salemansRouter.put("/saleman", putSaleman);
-salemansRouter.delete("/saleman", deleteSaleman);
+salemansRouter.get("/salesmans", getSalemans);
+salemansRouter.post("/salseman", postSaleman);
+salemansRouter.put("/salseman", putSaleman);
+salemansRouter.delete("/salesman", deleteSaleman);
 
 module.exports = salemansRouter;
