@@ -3,7 +3,7 @@
 //Aca deberiamos de importar nuestros controllers
 const getAllClients = require("../controllers/clients/getAllClients.js");
 const updateClient = require("../controllers/clients/putClient.js");
-const createClient = require("../controllers/client/createClient");
+const createClient = require("../controllers/clients/createClient.js");
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
   const { id } = req.query;
