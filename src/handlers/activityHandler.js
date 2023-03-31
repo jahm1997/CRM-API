@@ -2,33 +2,27 @@
 // **** CONTROLLERS ***
 //Aca deberiamos de importar nuestros controllers
 
+const createActivities = require("../controllers/activities/createActivities");
+const getActivities = require("../controllers/activities/getActivities");
+const updateActivities = require("../controllers/activities/updateActivities");
+
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getActivity = async (req, res) => {
+  const {id} = req.query
   try {
-    //Controller para obtener actividades
-    res.send("Hola soy activityRouter");
+    const response = await getActivities(id)
+    res.status(200).json(response)
   } catch (error) {
-    res.status(400).json({ error: "Activity Not Found" });
+    res.status(400).json({ error: error.message });
   }
 };
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postActivity = async (req, res) => {
-  const {
-    method,
-    state,
-    timestamp,
-    from,
-    to,
-    message,
-    subject,
-    attached,
-    sale_id,
-    client_id,
-    saleman_id,
-  } = req.body;
+  const data = req.body;
   try {
-    //Crear/Agregar nuevo cliente
+    const response = await createActivities(data)
+    res.status(200).json(response)
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -36,24 +30,25 @@ const postActivity = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putActivity = async (req, res) => {
+  const data = req.body;
   try {
-    //
+    const response = await updateActivities(data)
+    res.status(200).json(response)
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 //----------------------------------- HANDLERS DELETE -----------------------------------\\
-const deleteActivity = async (req, res) => {
+/* const deleteActivity = async (req, res) => {
   try {
     //
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-};
+}; */
 
 module.exports = {
   getActivity,
   postActivity,
   putActivity,
-  deleteActivity,
 };
