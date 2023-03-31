@@ -1,11 +1,14 @@
 //Aca deberiamos de importar nuestros controllers
-// **** CONTROLLERS ***
+const getAllSaleProducts = require("../controllers/sale_products/getAllSaleProducts.js");
+const createSaleProducts = require("../controllers/sale_products/createSaleProducts.js");
+const updateSaleProducts = require("../controllers/sale_products/modifySaleProducts.js");
 //Aca deberiamos de importar nuestros controllers
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getSaleProducts = async (req, res) => {
   try {
-    //Controller para obtener actividades
+    const sale_products = await getAllSaleProducts();
+    res.status(200).send(sale_products);
   } catch (error) {
     res.status(400).json({ error: "Activity Not Found" });
   }
@@ -15,7 +18,13 @@ const getSaleProducts = async (req, res) => {
 const postSaleProduct = async (req, res) => {
   const { quantity_sale, price_sale, sale_id, product_id } = req.body;
   try {
-    //Crear/Agregar nuevo cliente
+    await createSaleProducts({
+      quantity_sale,
+      price_sale,
+      sale_id,
+      product_id,
+    });
+    res.status(200).send("Sale Product Created");
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -23,16 +32,10 @@ const postSaleProduct = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putSaleProduct = async (req, res) => {
+  const { id, quantity_sale, price_sale } = req.body;
   try {
-    //
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-//----------------------------------- HANDLERS DELETE -----------------------------------\\
-const deleteSaleProduct = async (req, res) => {
-  try {
-    //
+    await updateSaleProducts({ id, quantity_sale, price_sale });
+    res.status(200).send("Actualizado correctamente");
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -42,5 +45,4 @@ module.exports = {
   getSaleProducts,
   postSaleProduct,
   putSaleProduct,
-  deleteSaleProduct,
 };
