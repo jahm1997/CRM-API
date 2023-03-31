@@ -12,8 +12,6 @@ const getSalemans = async (req, res) => {
     if (id || name || address || email || phone || enable) {
       const variable = id || name || address || email || phone || enable;
       const propiedad = Object.keys(req.query)[0];
-      console.log(variable);
-      console.log(Object.keys(req.query));
       const allSalesman = await getAllSalesman();
       const salesman = allSalesman.filter((ele) => ele[propiedad] == variable);
       res.json(salesman);
