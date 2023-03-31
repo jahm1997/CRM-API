@@ -14,7 +14,7 @@ module.exports = (database) => {
         commercial_register: DataTypes.STRING,
         address: DataTypes.STRING,
         email: DataTypes.STRING,
-        phone: DataTypes.STRING,
+        phone: DataTypes.INTEGER,
         logo: DataTypes.STRING,
         enable: DataTypes.BOOLEAN
     }, {

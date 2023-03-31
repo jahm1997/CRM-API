@@ -11,6 +11,6 @@ const bossRouter = Router();
 bossRouter.get("/boss", getBoss);
 bossRouter.post("/boss", postBoss);
 bossRouter.put("/boss", putBoss);
-bossRouter.delete("/boss", deleteBoss);
+// bossRouter.delete("/boss", deleteBoss);
 
 module.exports = bossRouter;
