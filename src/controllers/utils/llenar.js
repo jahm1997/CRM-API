@@ -9,7 +9,7 @@ const boss = {
     "commercial_register": "harnessrealmarkets",
     "address": "Kulas Light Apt. 556, Gwenborough",
     "email": "Sincere@april.biz",
-    "phone": "1-770-736-8031 x56442",
+    "phone": 982654357,
     "logo": "hildegard.org",
     "enable": true,
 }
