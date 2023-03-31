@@ -16,13 +16,13 @@ const getSaleProducts = async (req, res) => {
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postSaleProduct = async (req, res) => {
-  const { quantity_sale, price_sale, sale_id, product_id } = req.body;
+  const { quantity_sale, price_sale, activityId, productId } = req.body;
   try {
     await createSaleProducts({
       quantity_sale,
       price_sale,
-      sale_id,
-      product_id,
+      activityId,
+      productId,
     });
     res.status(200).send("Sale Product Created");
   } catch (error) {

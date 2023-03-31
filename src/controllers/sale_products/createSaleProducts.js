@@ -1,11 +1,11 @@
 const { Sale_product } = require("../../db.js");
 
-module.exports = async ({ quantity_sale, price_sale, product_id, sale_id }) => {
+module.exports = async ({ quantity_sale, price_sale, productId, activityId }) => {
   const newSaleProduct = await Sale_product.create({
     quantity_sale,
     price_sale,
-    product_id,
-    sale_id,
+    productId,
+    activityId,
   });
 
   return newSaleProduct;
