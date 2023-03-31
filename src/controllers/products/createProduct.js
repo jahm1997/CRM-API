@@ -8,6 +8,7 @@ module.exports = async ({
   sale_price,
   discount,
   category,
+  bossId,
 }) => {
   const newProduct = await Product.create({
     name,
@@ -17,6 +18,7 @@ module.exports = async ({
     sale_price,
     discount,
     category,
+    bossId,
   });
 
   return newProduct;
