@@ -11,7 +11,7 @@ const saleProduct = require("./models/saleProduct");
 const salesman = require("./models/salesman");
 const llenar = require("./controllers/utils/llenar");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
-
+console.log(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`);
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`,
   {
@@ -61,19 +61,26 @@ const { Activity, Boss, Client, Feedback, Product, Sale_product, Salesman } =
 // activity(sequelize);
 // saleProduct(sequelize);
 
-// console.log("DataBase Model = ", sequelize.models);
+
 
 //vendedor-feedback
 
-Client.belongsToMany(Salesman, { through: Activity });
-Salesman.belongsToMany(Client, { through: Activity });
+/* Client.belongsToMany(Salesman, { through: Activity });
+Salesman.belongsToMany(Client, { through: Activity }); */
 
-Activity.belongsToMany(Product, { through: Sale_product });
-Product.belongsToMany(Activity, { through: Sale_product });
+/* Activity.belongsToMany(Product, { through: Sale_product });
+Product.belongsToMany(Activity, { through: Sale_product }); */
 
 /* Salesman.hasOne(Client, { through: Salesman });
 
 Boss.hasOne(Salesman, { through: Boss }); */
+
+Sale_product.belongsTo(Activity)
+Sale_product.belongsTo(Product)
+
+Activity.belongsTo(Client)
+Activity.belongsTo(Salesman)
+
 Salesman.belongsTo(Boss);
 Client.belongsTo(Salesman);
 
@@ -81,11 +88,12 @@ Boss.hasOne(Product, { through: Boss });
 
 Salesman.hasOne(Feedback, { through: Salesman });
 
-// llenar(Boss, Salesman, Client).then(() => {
-//   console.log(
-//     "Se ha creado un Boss, Salesman y Client en la linea 84 de db.js"
-//   );
-// });
+/* llenar(Boss, Salesman, Client, Feedback)
+  .then(() => {
+    console.log(
+      "Se ha creado un Boss, Salesman y Client en la linea 84 de db.js"
+    );
+  }); */
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
