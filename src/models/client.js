@@ -11,7 +11,7 @@ module.exports = (database) => {
     name: {
       type: DataTypes.STRING,
       validate: {
-        len: [3, 15],
+        len: [3, 40],
       },
     },
     email: {
