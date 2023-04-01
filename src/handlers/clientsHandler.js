@@ -38,10 +38,10 @@ const postClient = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putClient = async (req, res) => {
-  const { id, name, email, phone, vip, enable, salesmanId } = req.body;
+  const data = req.body;
   try {
-    updateClient({ id, name, email, phone, vip, enable, salesmanId });
-    res.status(200).send("Datos actualizados");
+    const response = await updateClient(data);
+    res.status(200).send(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
