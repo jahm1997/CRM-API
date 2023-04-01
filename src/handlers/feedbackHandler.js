@@ -2,50 +2,34 @@
 // **** CONTROLLERS ***
 //Aca deberiamos de importar nuestros controllers
 
+const createFeedback = require("../controllers/feedbacks/createFeedback");
+const getFeedback = require("../controllers/feedbacks/getFeedback");
+
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getFeedbacks = async (req, res) => {
-  const { id } = req.query;
+  //se espera uno de los 2 valores
+  const { id, salesmanId } = req.query;
   try {
-    if (id) {
-      //Si existe el producto con ese id que devuelva unicamente a ese producto
-    } else {
-      //Funcion a llamar para traer todos los productos
-    }
+    const response = await getFeedback({ id, salesmanId })
+    res.status(200).json(response)
   } catch (error) {
-    res.status(400).json({ error: "Product Not Found" });
+    res.status(400).json({ error: error.message });
   }
 };
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postFeedback = async (req, res) => {
-  const { score, salesman } = req.body;
+  const { score, salesmanId } = req.body;
   try {
-    //Crear/Agregar nuevo cliente
+    const response = await createFeedback({ score, salesmanId })
+    res.status(200).json(response)
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-//----------------------------------- HANDLERS PUT -----------------------------------\\
-const putFeedback = async (req, res) => {
-  try {
-    //
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-//----------------------------------- HANDLERS DELETE -----------------------------------\\
-const deleteFeedback = async (req, res) => {
-  try {
-    //
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
 
 module.exports = {
   getFeedbacks,
-  postFeedback,
-  putFeedback,
-  deleteFeedback,
+  postFeedback
 };
