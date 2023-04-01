@@ -514,13 +514,8 @@ const clients = [
   ]
 ];
 
-module.exports = async (Boss, Salesman, Client) => {
-  /* const newClient = await Client.create(client, {
-        include: [{
-            association: Client.Salesman,
-            include: [Salesman.Boss]
-        }]
-    }) */
+module.exports = async (Boss, Salesman, Client, Feedback) => {
+
   for(let i = 0; i < bosses.length; i++) {
     const newBoss = await Boss.create(bosses[i]);
     const salesmanArr = salesmans[i];
@@ -529,6 +524,10 @@ module.exports = async (Boss, Salesman, Client) => {
       const clientArr = clients[j];
       for(let y = 0; y < clientArr.length; y++) {
         const newClient = await Client.create({...clientArr[y], salesmanId: newSalesman.id})
+      }
+      for(let y = 0; y < clientArr.length; y++) {
+        const score = Math.floor(Math.random() * 5) + 1;
+        const newFeedback= await Feedback.create({score, salesmanId: newSalesman.id})
       }
     }
   }
