@@ -31,10 +31,11 @@ module.exports = (database) => {
     },
     vip: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     enable: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      defaultValue: true,
     },
   });
 };

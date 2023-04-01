@@ -4,6 +4,8 @@
 const getAllClients = require("../controllers/clients/getAllClients.js");
 const updateClient = require("../controllers/clients/putClient.js");
 const createClient = require("../controllers/clients/createClient.js");
+const statusNegotiation = require("../controllers/clients/statusNegotiation.js");
+const totalPurchased = require("../controllers/clients/totalPurchased.js");
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
   const { id } = req.query;
@@ -12,7 +14,16 @@ const getClients = async (req, res) => {
       //Si existe un cliente con ese nombre que devuelva unicamente a ese cliente
       const allClients = await getAllClients();
       const client = allClients.filter((ele) => ele.id === id);
-      res.json(client);
+
+      let estado = await statusNegotiation({ id });
+      let total = await totalPurchased({ id });
+      let resultado = {
+        ...client[0].dataValues,
+        status: estado.state,
+        totalPurchased: total,
+      };
+
+      res.json(resultado);
       // res.send('hola tengo id')
     } else {
       //Funcion a llamar para traer todos los clientes
