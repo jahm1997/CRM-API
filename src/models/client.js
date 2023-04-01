@@ -10,18 +10,22 @@ module.exports = (database) => {
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     phone: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     vip: {
       type: DataTypes.BOOLEAN,
     },
     enable: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
     },
   });
 };
