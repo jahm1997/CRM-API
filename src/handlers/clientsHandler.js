@@ -6,6 +6,7 @@ const updateClient = require("../controllers/clients/putClient.js");
 const createClient = require("../controllers/clients/createClient.js");
 const statusNegotiation = require("../controllers/clients/statusNegotiation.js");
 const totalPurchased = require("../controllers/clients/totalPurchased.js");
+const optimizado = require("../controllers/clients/totalOptimizado.js");
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
   const { id } = req.query;
@@ -16,7 +17,7 @@ const getClients = async (req, res) => {
       const client = allClients.filter((ele) => ele.id === id);
 
       let estado = await statusNegotiation({ id });
-      let total = await totalPurchased({ id });
+      let total = await optimizado({ id });
       let resultado = {
         ...client[0].dataValues,
         status: estado.state,
@@ -29,7 +30,19 @@ const getClients = async (req, res) => {
       //Funcion a llamar para traer todos los clientes
       // res.send("Hola soy client");
       const allClients = await getAllClients();
-      res.json(allClients);
+
+      let resultadoFinal = await Promise.all(
+        allClients.map(async (c) => {
+          let estado = await statusNegotiation({ id: c.dataValues.id });
+          return {
+            ...c.dataValues,
+            status: estado.state,
+            totalPurchased: await optimizado({ id: c.dataValues.id }),
+          };
+        })
+      );
+      // res.json(allClients);
+      res.json(resultadoFinal);
     }
   } catch (error) {
     res.status(400).json({ error: "Client Not Found" });
