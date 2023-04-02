@@ -9,7 +9,7 @@ const feedback = require("./models/feedback");
 const product = require("./models/product");
 const saleProduct = require("./models/saleProduct");
 const salesman = require("./models/salesman");
-const llenar = require("./controllers/utils/llenar");
+const llenar = require("./controllers/utils/dbFill");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
 // console.log(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`);
 const sequelize = new Sequelize(
@@ -86,12 +86,12 @@ Boss.hasOne(Product, { through: Boss });
 
 Salesman.hasOne(Feedback, { through: Salesman });
 
-// llenar(Boss, Salesman, Client, Feedback, Product)
+// llenar(sequelize.models)
 //   .then(() => {
 //     console.log(
 //       "Se ha creado un Boss, Salesman y Client en la linea 84 de db.js"
 //     );
-//   });
+//   });  
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

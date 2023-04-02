@@ -21,7 +21,7 @@ module.exports = (database) => {
       type: DataTypes.STRING,
     },
     message: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     subject: {
       type: DataTypes.STRING,

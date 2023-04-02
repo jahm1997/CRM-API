@@ -16,6 +16,13 @@ module.exports = (database) => {
           len: [3, 40],
         },
       },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 40],
+        },
+      },
       company: {
         type: DataTypes.STRING,
       },
