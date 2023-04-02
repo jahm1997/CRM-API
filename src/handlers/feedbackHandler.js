@@ -10,8 +10,8 @@ const getFeedbacks = async (req, res) => {
   //se espera uno de los 2 valores
   const { id, salesmanId } = req.query;
   try {
-    const response = await getFeedback({ id, salesmanId })
-    res.status(200).json(response)
+    const response = await getFeedback({ id, salesmanId });
+    res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -21,15 +21,18 @@ const getFeedbacks = async (req, res) => {
 const postFeedback = async (req, res) => {
   const { score, salesmanId } = req.body;
   try {
-    const response = await createFeedback({ score, salesmanId })
-    res.status(200).json(response)
+    if (salesmanId) {
+      const response = await createFeedback({ score, salesmanId });
+      res.status(200).json(response);
+    } else {
+      res.status(400).send("No ha relacionado a un vendedor");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-
 module.exports = {
   getFeedbacks,
-  postFeedback
+  postFeedback,
 };

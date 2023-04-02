@@ -31,8 +31,12 @@ const getSalemans = async (req, res) => {
 const postSaleman = async (req, res) => {
   const data = req.body;
   try {
-    const response = await createSalesman(data);
-    res.status(201).json(response);
+    if (data.bossId) {
+      const response = await createSalesman(data);
+      res.status(201).json(response);
+    } else {
+      res.status(400).send("No ha relacionado a ningun Jefe");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

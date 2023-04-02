@@ -18,13 +18,17 @@ const getSaleProducts = async (req, res) => {
 const postSaleProduct = async (req, res) => {
   const { quantity_sale, price_sale, activityId, productId } = req.body;
   try {
-    await createSaleProducts({
-      quantity_sale,
-      price_sale,
-      activityId,
-      productId,
-    });
-    res.status(200).send("Sale Product Created");
+    if (activityId && productId) {
+      await createSaleProducts({
+        quantity_sale,
+        price_sale,
+        activityId,
+        productId,
+      });
+      res.status(200).send("Sale Product Created");
+    } else {
+      res.status(400).send("Falta relacionar una actividad y/o producto");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

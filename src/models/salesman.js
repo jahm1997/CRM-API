@@ -10,15 +10,27 @@ module.exports = (database) => {
     },
     name: {
       type: DataTypes.STRING,
+      validate: {
+        len: [3, 40],
+      },
     },
     address: {
       type: DataTypes.STRING,
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        is: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+        len: [10, 35],
+      },
     },
     phone: {
       type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [10, 35],
+      },
     },
     enable: {
       type: DataTypes.BOOLEAN,

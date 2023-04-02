@@ -10,8 +10,14 @@ module.exports = (database) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      quantity_sale: DataTypes.INTEGER,
-      price_sale: DataTypes.NUMERIC,
+      quantity_sale: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      price_sale: {
+        type: DataTypes.NUMERIC,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,
