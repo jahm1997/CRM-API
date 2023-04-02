@@ -27,6 +27,10 @@ module.exports = (database) => {
     },
     phone: {
       type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [10, 35],
+      },
     },
     enable: {
       type: DataTypes.BOOLEAN,
