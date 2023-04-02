@@ -1,0 +1,38 @@
+module.exports = [
+  {
+    name: "Leanne Graham",
+    username: "Bret",
+    company: "Romaguera-Crona",
+    company_description: "Multi-layered client-server neural-net",
+    commercial_register: "harnessrealmarkets",
+    address: "Kulas Light Apt. 556, Gwenborough",
+    email: "Sincere@april.biz",
+    phone: 982654357,
+    logo: "hildegard.org",
+    enable: true,
+  },
+  {
+    name: "Robert Pickman",
+    username: "Rob",
+    company: "Great Company City",
+    company_description: "The first company of the citynetwork",
+    commercial_register: "RobJobMarket",
+    address: "Av Manco Capac, Calle 13, Colombia",
+    email: "robpick@gmail.com",
+    phone: 982654357,
+    logo: "GreatCity.org",
+    enable: true,
+  },
+  {
+    name: "Raquel Montgomery",
+    username: "Mony",
+    company: "Montgomery Club",
+    company_description: "The top club of the city",
+    commercial_register: "Mostful experience",
+    address: "Hight Avenue 523, Londres",
+    email: "raquelmont@gmail.com",
+    phone: 982654357,
+    logo: "Montgomery.org",
+    enable: true,
+  }
+];
