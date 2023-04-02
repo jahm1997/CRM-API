@@ -40,8 +40,12 @@ const getClients = async (req, res) => {
 const postClient = async (req, res) => {
   const data = req.body;
   try {
-    const response = await createClient(data);
-    res.status(201).json(response);
+    if (data.salesmanId) {
+      const response = await createClient(data);
+      res.status(201).json(response);
+    } else {
+      res.status(400).send("No ha relacionado a ningun Vendedor");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

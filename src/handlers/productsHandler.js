@@ -27,17 +27,19 @@ const postProduct = async (req, res) => {
     bossId,
   } = req.body;
   try {
-    await createProduct({
-      name,
-      quantity,
-      enable,
-      cost_price,
-      sale_price,
-      discount,
-      category,
-      bossId,
-    });
-    res.status(200).send("Producto creado/agregado correctamente!");
+    if (bossId) {
+      await createProduct({
+        name,
+        quantity,
+        enable,
+        cost_price,
+        sale_price,
+        discount,
+        category,
+        bossId,
+      });
+      res.status(200).send("Producto creado/agregado correctamente!");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

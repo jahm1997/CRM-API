@@ -8,10 +8,10 @@ const updateActivities = require("../controllers/activities/updateActivities");
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getActivity = async (req, res) => {
-  const {id} = req.query
+  const { id } = req.query;
   try {
-    const response = await getActivities(id)
-    res.status(200).json(response)
+    const response = await getActivities(id);
+    res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -21,8 +21,12 @@ const getActivity = async (req, res) => {
 const postActivity = async (req, res) => {
   const data = req.body;
   try {
-    const response = await createActivities(data)
-    res.status(200).json(response)
+    if (data.clientId && data.salesmanId) {
+      const response = await createActivities(data);
+      res.status(200).json(response);
+    } else {
+      res.status(400).send("Falta relacionar una cliente y/o vendedor");
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -32,8 +36,8 @@ const postActivity = async (req, res) => {
 const putActivity = async (req, res) => {
   const data = req.body;
   try {
-    const response = await updateActivities(data)
-    res.status(200).json(response)
+    const response = await updateActivities(data);
+    res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
