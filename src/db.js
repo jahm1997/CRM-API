@@ -11,7 +11,7 @@ const saleProduct = require("./models/saleProduct");
 const salesman = require("./models/salesman");
 const llenar = require("./controllers/utils/llenar");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
-console.log(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`);
+// console.log(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`);
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`,
   {
@@ -61,8 +61,6 @@ const { Activity, Boss, Client, Feedback, Product, Sale_product, Salesman } =
 // activity(sequelize);
 // saleProduct(sequelize);
 
-
-
 //vendedor-feedback
 
 /* Client.belongsToMany(Salesman, { through: Activity });
@@ -75,11 +73,11 @@ Product.belongsToMany(Activity, { through: Sale_product }); */
 
 Boss.hasOne(Salesman, { through: Boss }); */
 
-Sale_product.belongsTo(Activity)
-Sale_product.belongsTo(Product)
+Sale_product.belongsTo(Activity);
+Sale_product.belongsTo(Product);
 
-Activity.belongsTo(Client)
-Activity.belongsTo(Salesman)
+Activity.belongsTo(Client);
+Activity.belongsTo(Salesman);
 
 Salesman.belongsTo(Boss);
 Client.belongsTo(Salesman);
