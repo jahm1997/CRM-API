@@ -34,6 +34,9 @@ const getClients = async (req, res) => {
       let resultadoFinal = await Promise.all(
         allClients.map(async (c) => {
           let estado = await statusNegotiation({ id: c.dataValues.id });
+          if (estado==null){
+            estado={state:'Pendiente'}
+          }
           return {
             ...c.dataValues,
             status: estado.state,
@@ -45,7 +48,7 @@ const getClients = async (req, res) => {
       res.json(resultadoFinal);
     }
   } catch (error) {
-    res.status(400).json({ error: "Client Not Found" });
+    res.status(400).json({ error: error.message });
   }
 };
 
