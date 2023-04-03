@@ -87,9 +87,7 @@ Boss.hasOne(Product, { through: Boss });
 Salesman.hasOne(Feedback, { through: Salesman });
 
 // llenar(sequelize.models).then(() => {
-//   console.log(
-//     "Se ha creado un Boss, Salesman y Client en la linea 84 de db.js"
-//   );
+//   console.log("Se ha ejecutado llenar en la linea 91 de db.js");
 // });
 
 module.exports = {
