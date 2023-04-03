@@ -18,6 +18,9 @@ const getClients = async (req, res) => {
 
       let estado = await statusNegotiation({ id });
       let total = await optimizado({ id });
+      if (estado==null){
+        estado={state:'Pendiente'}
+      }
       let resultado = {
         ...client[0].dataValues,
         status: estado.state,
