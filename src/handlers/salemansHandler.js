@@ -6,24 +6,12 @@ const modifySalesman = require("../controllers/salesman/modifySalesman");
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getSalemans = async (req, res) => {
-  const { id, name, address, email, phone, enable } = req.query;
-  console.log(req.query);
+  const data = req.query;
   try {
-    if (id || name || address || email || phone || enable) {
-      const variable = id || name || address || email || phone || enable;
-      const propiedad = Object.keys(req.query)[0];
-      const allSalesman = await getAllSalesman();
-      const salesman = allSalesman.filter((ele) => ele[propiedad] == variable);
-      res.json(salesman);
-      // res.send('hola tengo id')
-    } else {
-      //Funcion a llamar para traer todos los clientes
-      // res.send("Hola soy client");
-      const allSalesman = await getAllSalesman();
-      res.json(allSalesman);
-    }
+    const response = await getAllSalesman(data);
+    res.status(200).json(response)
   } catch (error) {
-    res.status(400).json({ error: "Salesman Not Found" });
+    res.status(400).json({ error: error.message });
   }
 };
 
