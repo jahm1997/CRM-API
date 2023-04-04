@@ -1,8 +1,22 @@
-const { Client } = require('../../db.js')
+const { Client } = require("../../db.js");
+const statusNegotiation = require("./statusNegotiation.js");
+const totalPurchased = require("./totalPurchased.js");
 
-const getAllClients = async() => {
-    const allClients = await Client.findAll();
-    return allClients;
-}
+module.exports = async () => {
+  const allClients = await Client.findAll();
 
-module.exports = getAllClients;
+  let resultadoFinal = await Promise.all(
+    allClients.map(async (c) => {
+      let estado = await statusNegotiation({ id: c.dataValues.id });
+      if (estado == null) {
+        estado = { state: "Pendiente" };
+      }
+      return {
+        ...c.dataValues,
+        status: estado.state,
+        totalPurchased: await totalPurchased({ id: c.dataValues.id }),
+      };
+    })
+  );
+  return resultadoFinal;
+};
