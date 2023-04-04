@@ -2,8 +2,8 @@ const { Client } = require("../../db.js");
 const statusNegotiation = require("./statusNegotiation.js");
 const totalPurchased = require("./totalPurchased.js");
 
-module.exports = async () => {
-  const allClients = await Client.findAll();
+module.exports = async (salesmanId) => {
+  const allClients = await Client.findAll({where:{salesmanId}});
 
   let resultadoFinal = await Promise.all(
     allClients.map(async (c) => {
