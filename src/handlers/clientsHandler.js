@@ -6,7 +6,6 @@ const updateClient = require("../controllers/clients/putClient.js");
 const createClient = require("../controllers/clients/createClient.js");
 const statusNegotiation = require("../controllers/clients/statusNegotiation.js");
 const totalPurchased = require("../controllers/clients/totalPurchased.js");
-const optimizado = require("../controllers/clients/totalOptimizado.js");
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
   const { id } = req.query;
@@ -17,9 +16,9 @@ const getClients = async (req, res) => {
       const client = allClients.filter((ele) => ele.id === id);
 
       let estado = await statusNegotiation({ id });
-      let total = await optimizado({ id });
-      if (estado==null){
-        estado={state:'Pendiente'}
+      let total = await totalPurchased({ id });
+      if (estado == null) {
+        estado = { state: "Pendiente" };
       }
       let resultado = {
         ...client[0].dataValues,
@@ -37,13 +36,13 @@ const getClients = async (req, res) => {
       let resultadoFinal = await Promise.all(
         allClients.map(async (c) => {
           let estado = await statusNegotiation({ id: c.dataValues.id });
-          if (estado==null){
-            estado={state:'Pendiente'}
+          if (estado == null) {
+            estado = { state: "Pendiente" };
           }
           return {
             ...c.dataValues,
             status: estado.state,
-            totalPurchased: await optimizado({ id: c.dataValues.id }),
+            totalPurchased: await totalPurchased({ id: c.dataValues.id }),
           };
         })
       );
