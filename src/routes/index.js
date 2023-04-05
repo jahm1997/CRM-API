@@ -7,7 +7,8 @@ const productsRouter = require("./productsRouter.js");
 const salemans = require("./salemansRouter.js");
 const feedbacks = require("./feedbacksRouter.js");
 const sale_productsRouter = require("./sale_productsRouter.js");
-const taskRouter = require("./TaskRouter.js")
+const taskRouter = require("./TaskRouter.js");
+const categoryRouter = require("./categoryRouter.js");
 
 const router = Router();
 // Configurar los routers
@@ -20,5 +21,6 @@ router.use("/", productsRouter);
 router.use("/", feedbacks);
 router.use("/", sale_productsRouter);
 router.use("/", taskRouter);
+router.use("/", categoryRouter);
 
 module.exports = router;
