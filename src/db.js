@@ -47,7 +47,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 // const { Dog } = sequelize.models;
-const { Activity, Boss, Client, Feedback, Product, Sale_product, Salesman } =
+const { Activity, Boss, Client, Feedback, Product, Sale_product, Salesman, Task } =
   sequelize.models;
 
 // Aca vendrian las relaciones
@@ -85,6 +85,9 @@ Client.belongsTo(Salesman);
 Boss.hasOne(Product, { through: Boss });
 
 Salesman.hasOne(Feedback, { through: Salesman });
+
+Task.belongsTo(Client);
+Task.belongsTo(Salesman);
 
 // llenar(sequelize.models).then(() => {
 //   console.log("Se ha ejecutado llenar en la linea 91 de db.js");
