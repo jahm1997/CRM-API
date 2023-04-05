@@ -5,6 +5,9 @@ const totalPurchased = require("./totalPurchased.js");
 module.exports = async ({ salesmanId, bossId }) => {
   let allClients
 
+  if (!salesmanId && !bossId)
+    throw new Error('salesmanId or bossId required')
+    
   if (salesmanId) {
     allClients = await Client.findAll({ where: { salesmanId, enable: true } });
   }
