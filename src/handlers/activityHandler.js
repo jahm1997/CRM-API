@@ -8,9 +8,9 @@ const updateActivities = require("../controllers/activities/updateActivities");
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getActivity = async (req, res) => {
-  const { id } = req.query;
+  const { id, clientId, salesmanId } = req.query;
   try {
-    const response = await getActivities(id);
+    const response = await getActivities({ id, clientId, salesmanId });
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -25,7 +25,7 @@ const postActivity = async (req, res) => {
       const response = await createActivities(data);
       res.status(200).json(response);
     } else {
-      res.status(400).send("Falta relacionar una cliente y/o vendedor");
+      res.status(400).send({ error: error.message });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
