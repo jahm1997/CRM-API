@@ -6,11 +6,12 @@ const updateProduct = require("../controllers/products/modifyProduct.js");
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getProducts = async (req, res) => {
+  const data = req.query
   try {
-    let products = await allProducts();
+    let products = await allProducts(data);
     res.status(200).send(products);
   } catch (error) {
-    res.status(400).json({ error: "Product Not Found" });
+    res.status(400).json({ error: error.message });
   }
 };
 
