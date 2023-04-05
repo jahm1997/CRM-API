@@ -7,13 +7,13 @@ const updateClient = require("../controllers/clients/putClient.js");
 const createClient = require("../controllers/clients/createClient.js");
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getClients = async (req, res) => {
-  const { id, salesmanId } = req.query;
+  const { id, salesmanId, bossId } = req.query;
   try {
     if (id) {
       const resultado = await getClientById(id);
       res.json(resultado);
     } else {
-      const resultadoFinal = await getAllClients(salesmanId);
+      const resultadoFinal = await getAllClients({ salesmanId, bossId });
       res.json(resultadoFinal);
     }
   } catch (error) {
