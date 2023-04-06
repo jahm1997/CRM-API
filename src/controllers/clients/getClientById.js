@@ -1,20 +1,23 @@
 const { Client } = require("../../db.js");
 const statusNegotiation = require("./statusNegotiation.js");
-const totalPurchased = require("./totalPurchased.js");
+const ctotalPurchased = require("./totalPurchased.js");
 
 module.exports = async (id) => {
-  const allClients = await Client.findAll();
-  const client = allClients.filter((ele) => ele.id === id);
+  const client = await Client.findByPk(id)
+  if (client === null)
+    return client
 
-  let estado = await statusNegotiation({ id });
-  let total = await totalPurchased({ id });
+  const estado = await statusNegotiation({ id });
+  const { totalPurchased, categories } = await ctotalPurchased({ id });
   if (estado == null) {
     estado = { state: "Pendiente" };
   }
-  let resultado = {
-    ...client[0].dataValues,
+  const resultado = {
+    ...client.dataValues,
     status: estado.state,
-    totalPurchased: total,
+    totalPurchased,
+    categories
   };
   return resultado;
+
 };

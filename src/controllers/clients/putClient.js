@@ -1,4 +1,5 @@
 const { Client } = require("../../db.js");
+const getClientById = require("./getClientById.js");
 
 module.exports = async (data) => {
   const dataAct = { ...data };
@@ -11,6 +12,6 @@ module.exports = async (data) => {
   });
 
   if (resultado) {
-    return await Client.findByPk(id);
+    return await getClientById(id);
   } else throw new Error("Failed to update, missing information");
 };
