@@ -9,6 +9,7 @@ const feedbacks = require("./feedbacksRouter.js");
 const sale_productsRouter = require("./sale_productsRouter.js");
 const taskRouter = require("./TaskRouter.js");
 const categoryRouter = require("./categoryRouter.js");
+const dashboard_salesmanRouter = require("./dashboard_salesmanRouter.js");
 
 const router = Router();
 // Configurar los routers
@@ -22,5 +23,6 @@ router.use("/", feedbacks);
 router.use("/", sale_productsRouter);
 router.use("/", taskRouter);
 router.use("/", categoryRouter);
+router.use("/", dashboard_salesmanRouter);
 
 module.exports = router;
