@@ -12,9 +12,8 @@ module.exports = async (data) => {
         }
     })
 
-    console.log(resultado)
     if (resultado) {
-        const activity = await getActivities(id)
+        const activity = await getActivities({id})
         return activity
     }
     else
