@@ -3,6 +3,7 @@
 //Aca deberiamos de importar nuestros controllers
 const createBoss = require('../controllers/Bosses/CreateBoss.js');
 const getAllBosses = require('../controllers/Bosses/getAllBosses.js');
+const getBossById = require('../controllers/Bosses/getBossById.js');
 const updateBoss = require('../controllers/Bosses/updateBoss.js');
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
@@ -11,8 +12,7 @@ const getBoss = async (req, res) => {
   try {
     if (id) {
       //Si existe el producto con ese id que devuelva unicamente a ese producto
-      const allBosses = await getAllBosses();
-      const boss = allBosses.filter((ele) => ele.id === id);
+      const boss = await getBossById(id);
       res.status(200).json(boss)
     } else {
       //Funcion a llamar para traer todos los productos
@@ -58,33 +58,11 @@ const postBoss = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putBoss = async (req, res) => {
-  const {
-    id,
-    name,
-    company,
-    company_description,
-    commercial_register,
-    address,
-    email,
-    phone,
-    logo,
-    enable,
-  } = req.body;
+  const data = req.body;
   try {
     //
-    updateBoss({
-      id,
-      name,
-      company,
-      company_description,
-      commercial_register,
-      address,
-      email,
-      phone,
-      logo,
-      enable,
-    });
-    res.status(200).send('Jefe actualizado');
+    const response = await updateBoss(data);
+    res.status(200).send(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
