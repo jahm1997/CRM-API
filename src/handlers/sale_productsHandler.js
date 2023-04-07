@@ -1,34 +1,26 @@
 //Aca deberiamos de importar nuestros controllers
-const getAllSaleProducts = require("../controllers/sale_products/getAllSaleProducts.js");
+const fgetSaleProducts = require("../controllers/sale_products/getSaleProducts.js");
 const createSaleProducts = require("../controllers/sale_products/createSaleProducts.js");
 const updateSaleProducts = require("../controllers/sale_products/modifySaleProducts.js");
 //Aca deberiamos de importar nuestros controllers
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getSaleProducts = async (req, res) => {
+  const { id, activityId } = req.query
   try {
-    const sale_products = await getAllSaleProducts();
+    const sale_products = await fgetSaleProducts({ id, activityId });
     res.status(200).send(sale_products);
   } catch (error) {
-    res.status(400).json({ error: "Activity Not Found" });
+    res.status(400).json({ error: error.message });
   }
 };
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postSaleProduct = async (req, res) => {
-  const { quantity_sale, price_sale, activityId, productId } = req.body;
+  const data = req.body;
   try {
-    if (activityId && productId) {
-      await createSaleProducts({
-        quantity_sale,
-        price_sale,
-        activityId,
-        productId,
-      });
-      res.status(200).send("Sale Product Created");
-    } else {
-      res.status(400).send("Falta relacionar una actividad y/o producto");
-    }
+    const response = await createSaleProducts(data);
+    res.status(200).send(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -36,10 +28,10 @@ const postSaleProduct = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putSaleProduct = async (req, res) => {
-  const { id, quantity_sale, price_sale } = req.body;
+  const data = req.body;
   try {
-    await updateSaleProducts({ id, quantity_sale, price_sale });
-    res.status(200).send("Actualizado correctamente");
+    const response = await updateSaleProducts(data);
+    res.status(200).send(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
