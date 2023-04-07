@@ -8,9 +8,9 @@ const updateTask = require('../controllers/tasks/updateTask.js')
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getTask = async (req, res) => {
-  const { id } = req.query;
+  const { id, clientId, salesmanId } = req.query;
   try {
-    const response = await getTasks(id);
+    const response = await getTasks({ id, clientId, salesmanId });
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -25,7 +25,7 @@ const postTask = async (req, res) => {
       const response = await createTask(data)
       res.status(200).json(response);
     } else {
-      res.status(400).send("Falta relacionar una cliente y/o vendedor");
+      res.status(400).send({ error: error.message });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -52,7 +52,7 @@ const putTask = async (req, res) => {
 }; */
 
 module.exports = {
-    getTask,
-    postTask,
-    putTask
+  getTask,
+  postTask,
+  putTask
 };
