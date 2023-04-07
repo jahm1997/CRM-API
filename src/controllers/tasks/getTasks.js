@@ -1,16 +1,22 @@
 const { Task } = require('../../db.js');
 
-module.exports = async (id = null) => {
-    if (id === null) {
-        const task = await Task.findAll()
+module.exports = async ({ id, clientId, salesmanId }) => {
+
+    if (!id && !clientId && !salesmanId)
+        throw new Error('id task\'s, clientId or salesmanId required')
+
+    if (clientId) {
+        const task = await Task.findAll({ where: { clientId } })
         return task
-    } else {
-        const task = await Task.findByPk(id)
-        return task
-        
-        /* if (activity !== null)
-            return activity
-        else
-            throw new Error('id is not exist') */
+    }
+
+    if (id) {
+        const activity = await Task.findByPk(id)
+        return activity
+    }
+
+    if (salesmanId) {
+        const activity = await Task.findAll({ where: { salesmanId } })
+        return activity
     }
 }

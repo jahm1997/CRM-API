@@ -14,7 +14,7 @@ module.exports = async (data) => {
 
     console.log(resultado)
     if (resultado) {
-        const task = await getTasks(id)
+        const task = await getTasks({id})
         return task
     }
     else
