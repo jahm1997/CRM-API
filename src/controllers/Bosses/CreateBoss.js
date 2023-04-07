@@ -1,29 +1,9 @@
-const { Boss } = require('../../db.js');
+const { Boss } = require("../../db.js");
 
-const createBoss = async ({
-    name,
-    company,
-    company_description,
-    commercial_register,
-    address,
-    email,
-    phone,
-    logo,
-    enable,
-}) => {
-    const newBoss = Boss.create({
-        name,
-        company,
-        company_description,
-        commercial_register,
-        address,
-        email,
-        phone,
-        logo,
-        enable,
-    });
+const createBoss = async (data) => {
+  const newBoss = await Boss.create(data);
 
-    return newBoss;
-}
+  return newBoss;
+};
 
 module.exports = createBoss;

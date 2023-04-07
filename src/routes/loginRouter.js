@@ -5,6 +5,6 @@ const { loginUser } = require("../handlers/authHandler.js");
 const loginRouter = Router();
 
 //Rutas
-loginRouter.get("/login", loginUser);
+loginRouter.post("/login", loginUser);
 
 module.exports = loginRouter;
