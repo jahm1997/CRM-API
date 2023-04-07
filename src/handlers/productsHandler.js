@@ -17,30 +17,10 @@ const getProducts = async (req, res) => {
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postProduct = async (req, res) => {
-  const {
-    name,
-    quantity,
-    enable,
-    cost_price,
-    sale_price,
-    discount,
-    category,
-    bossId,
-  } = req.body;
+  const data = req.body;
   try {
-    if (bossId) {
-      await createProduct({
-        name,
-        quantity,
-        enable,
-        cost_price,
-        sale_price,
-        discount,
-        category,
-        bossId,
-      });
-      res.status(200).send("Producto creado/agregado correctamente!");
-    }
+    const response = await createProduct(data);
+    res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -48,28 +28,10 @@ const postProduct = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putProduct = async (req, res) => {
-  const {
-    id,
-    name,
-    quantity,
-    enable,
-    cost_price,
-    sale_price,
-    discount,
-    category,
-  } = req.body;
+  const data = req.body;
   try {
-    await updateProduct({
-      id,
-      name,
-      quantity,
-      enable,
-      cost_price,
-      sale_price,
-      discount,
-      category,
-    });
-    res.status(200).send("Producto modificado/actualizado correctamente!");
+    const response = await updateProduct(data);
+    res.status(200).send(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

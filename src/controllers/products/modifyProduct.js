@@ -1,31 +1,22 @@
 const { Product } = require("../../db.js");
+const getProductById = require("./getProductById.js");
 
-const updateProduct = async ({
-  id,
-  name,
-  quantity,
-  enable,
-  cost_price,
-  sale_price,
-  discount,
-  category,
-}) => {
-  await Product.update(
-    {
-      name,
-      quantity,
-      enable,
-      cost_price,
-      sale_price,
-      discount,
-      category,
-    },
-    {
-      where: {
-        id,
-      },
+const updateProduct = async (data) => {
+  const dataAct = { ...data }
+  const id = dataAct.id
+  delete dataAct.id
+  const [resultado] = await Product.update(dataAct, {
+    where: {
+      id,
     }
-  );
-};
+  })
+
+  if (resultado) {
+    const product = await getProductById(id)
+    return product
+  }
+  else
+    throw new Error('Failed to update, missing information')
+}
 
 module.exports = updateProduct;
