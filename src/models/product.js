@@ -17,6 +17,7 @@ module.exports = (database) => {
       sale_price: DataTypes.NUMERIC,
       discount: DataTypes.NUMERIC,
       category: DataTypes.STRING,
+      image: DataTypes.STRING,
     },
     {
       timestamps: false,

@@ -11,15 +11,12 @@ module.exports = (database) => {
     state: {
       type: DataTypes.STRING,
     },
-    to: {
+    description: {
       type: DataTypes.STRING,
     },
-    message: {
-      type: DataTypes.TEXT,
-    },
-    subject: {
-      type: DataTypes.STRING,
-    },
+    due_date: {
+      type: DataTypes.DATE,
+    },    
     attached: {
       type: DataTypes.STRING,
     },
