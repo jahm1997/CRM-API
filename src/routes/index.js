@@ -13,6 +13,7 @@ const taskRouter = require("./TaskRouter.js");
 const categoryRouter = require("./categoryRouter.js");
 const dashboard_salesmanRouter = require("./dashboard_salesmanRouter.js");
 const dashboard_bossRouter = require("./dashboard_bossRouter.js");
+const paymentRouter = require('./paymentRouter.js');
 
 const router = Router();
 // Configurar los routers
@@ -30,5 +31,6 @@ router.use("/", dashboard_salesmanRouter);
 router.use("/", signUpRouter);
 router.use("/", loginRouter);
 router.use("/", dashboard_bossRouter);
+router.use('/', paymentRouter);
 
 module.exports = router;
