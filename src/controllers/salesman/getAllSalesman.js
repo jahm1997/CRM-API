@@ -11,13 +11,12 @@ const getAllSalesman = async (data) => {
     const salesman = await Salesman.findByPk(id, {
       include: [
         {
-          model: Feedback,
-          where: { salesmanId: id }
+          model: Feedback
         }
       ],
     });
 
-    return customSalesman(salesman);
+    return await customSalesman(salesman);
   }
 
   if (name || address || email || phone || enable) {
@@ -42,7 +41,10 @@ const getAllSalesman = async (data) => {
 
     );
 
-    return allSalesman.map(salesman => customSalesman(salesman));
+    const result = await Promise.all(
+      allSalesman.map(async (salesman) => await customSalesman(salesman))
+    );
+    return result[0]
   }
 
   const allSalesman = await Salesman.findAll(
@@ -53,12 +55,15 @@ const getAllSalesman = async (data) => {
       },
       include: [
         {
-          model: Feedback,          
+          model: Feedback,
         }
       ],
     }
   );
-  return allSalesman.map(salesman => customSalesman(salesman));
+  const result = await Promise.all(
+    allSalesman.map(async (salesman) => await customSalesman(salesman))
+  );
+  return result
 };
 
 module.exports = getAllSalesman;
