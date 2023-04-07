@@ -2,14 +2,7 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const activity = require("./models/activity");
-const boss = require("./models/boss");
-const client = require("./models/client");
-const feedback = require("./models/feedback");
-const product = require("./models/product");
-const saleProduct = require("./models/saleProduct");
-const salesman = require("./models/salesman");
-const llenar = require("./controllers/utils/dbFill");
+const dbFill = require("./controllers/utils/dbFill");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
 // console.log(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`);
 const sequelize = new Sequelize(
@@ -60,27 +53,6 @@ const {
 } = sequelize.models;
 
 // Aca vendrian las relaciones
-// Product.hasMany(Reviews);
-
-// boss(sequelize);
-// salesman(sequelize);
-// product(sequelize);
-// client(sequelize);
-// feedback(sequelize);
-// activity(sequelize);
-// saleProduct(sequelize);
-
-//vendedor-feedback
-
-/* Client.belongsToMany(Salesman, { through: Activity });
-Salesman.belongsToMany(Client, { through: Activity }); */
-
-/* Activity.belongsToMany(Product, { through: Sale_product });
-Product.belongsToMany(Activity, { through: Sale_product }); */
-
-/* Salesman.hasOne(Client, { through: Salesman });
-
-Boss.hasOne(Salesman, { through: Boss }); */
 
 Sale_product.belongsTo(Activity);
 Sale_product.belongsTo(Product);
@@ -91,16 +63,18 @@ Activity.belongsTo(Salesman);
 Salesman.belongsTo(Boss);
 Client.belongsTo(Salesman);
 
-Boss.hasOne(Product, { through: Boss });
+Boss.hasMany(Product, { foreignKey: 'bossId' });
+Product.belongsTo(Boss, { foreignKey: 'bossId' });
 
-Salesman.hasOne(Feedback, { through: Salesman });
+Salesman.hasMany(Feedback, { foreignKey: 'salesmanId' });
+Feedback.belongsTo(Salesman, { foreignKey: 'salesmanId' });
 
 Task.belongsTo(Client);
 Task.belongsTo(Salesman);
 
-// llenar(sequelize.models).then(() => {
-//   console.log("Se ha ejecutado llenar en la linea 91 de db.js");
-// });
+/* dbFill(sequelize.models).then(() => {
+  console.log("Se ha ejecutado llenar en la linea 91 de db.js");
+}); */
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

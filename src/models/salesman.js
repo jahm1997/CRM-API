@@ -40,5 +40,8 @@ module.exports = (database) => {
     enable: {
       type: DataTypes.BOOLEAN,
     },
+    image:{
+      type: DataTypes.STRING,
+    },
   });
 };

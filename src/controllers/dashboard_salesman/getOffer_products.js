@@ -23,10 +23,11 @@ module.exports = async (id) => {
         ]
     });
 
-    const offer_products = salesmen.map((s) => {
-        const { name, quantity, discount } = s.dataValues.boss.product
+    const products= salesmen[0].dataValues.boss.dataValues.products
+    const offer_products = products.map((p) => {        
+        const { name, quantity, discount } = p.dataValues
         return { name, quantity, discount }
     })
 
     return offer_products
-}
+}   
