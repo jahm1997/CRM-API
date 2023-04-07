@@ -20,7 +20,7 @@ const getBoss = async (req, res) => {
       res.status(200).json(allBosses)
     }
   } catch (error) {
-    res.status(400).json({ error: "Product Not Found" });
+    res.status(400).json({ error: error.message });
   }
 };
 
