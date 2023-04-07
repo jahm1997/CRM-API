@@ -25,6 +25,11 @@ module.exports = (database) => {
         len: [10, 35],
       },
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "12345",
+    },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
