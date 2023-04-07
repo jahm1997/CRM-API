@@ -34,8 +34,8 @@ const postSaleman = async (req, res) => {
 const putSaleman = async (req, res) => {
   const body = req.body;
   try {
-    modifySalesman(body);
-    res.status(200).send(body);
+    const response = await modifySalesman(body);
+    res.status(200).send(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
