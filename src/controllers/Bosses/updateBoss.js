@@ -6,7 +6,7 @@ const updateBoss = async (data) => {
   const dataAct = { ...data }
   const id = dataAct.id
   delete dataAct.id
-  const [resultado] = await Boss.update(data, {
+  const [resultado] = await Boss.update(dataAct, {
     where: {
       id,
     }
