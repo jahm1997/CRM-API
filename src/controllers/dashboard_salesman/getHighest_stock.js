@@ -18,13 +18,14 @@ module.exports = async (id) => {
         ]
     });
 
-    let Highest_stock = salesmen.map((s) => {
-        const { name, quantity, discount } = s.dataValues.boss.product
+    const products= salesmen[0].dataValues.boss.dataValues.products
+    let highest_stock = products.map((p) => {
+        const { name, quantity, discount } = p.dataValues
         return { name, quantity, discount }
     })
 
-    Highest_stock.sort((y, x) => x.quantity - y.quantity)
-    Highest_stock = Highest_stock.slice(0, 10)
+    highest_stock.sort((y, x) => x.quantity - y.quantity)
+    highest_stock = highest_stock.slice(0, 10)
 
-    return Highest_stock
+    return highest_stock
 }
