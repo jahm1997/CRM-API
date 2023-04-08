@@ -6,9 +6,10 @@ module.exports = async (id) => {
   const client = await Client.findByPk(id)
   if (client === null)
     return client
-
-  const estado = await statusNegotiation({ id });
+    
+  let estado = await statusNegotiation({ id });
   const { totalPurchased, categories } = await ctotalPurchased({ id });
+
   if (estado == null) {
     estado = { state: "Pendiente" };
   }
