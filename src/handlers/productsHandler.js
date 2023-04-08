@@ -2,6 +2,8 @@
 const allProducts = require("../controllers/products/getAllProducts.js");
 const createProduct = require("../controllers/products/createProduct.js");
 const updateProduct = require("../controllers/products/modifyProduct.js");
+const uploadFile = require("../firebase.js");
+const fs = require("fs");
 //Aca deberiamos de importar nuestros controllers
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
@@ -19,10 +21,12 @@ const getProducts = async (req, res) => {
 const postProduct = async (req, res) => {
   const data = req.body;
   const { path } = req.file;
+  console.log(path);
   try {
     const img = fs.readFileSync(path).buffer;
     const image = await uploadFile(img, "products");
-    const response = await createProduct({ ...data, ...img });
+    const response = await createProduct({ ...data, image });
+    console.log("este es reponse", response);
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });

@@ -3,6 +3,8 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
+const multer = require("multer");
+const path = require("path");
 
 require("./db.js");
 
@@ -24,6 +26,32 @@ server.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
+
+server.set("src", path.join(__dirname, "src"));
+server.set("src engine", "ejs");
+
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, "./public/images"),
+  filename: function (req, file, cb) {
+    cb(null, req.body.name + "-" + file.originalname);
+  },
+});
+
+server.use(
+  multer({
+    storage,
+    dest: path.join(__dirname, "./public/images"),
+    fileFilter: function (req, file, cb) {
+      const filetype = /jpeg|jpg|png|gif/;
+      const mimetype = filetype.test(file.mimetype);
+      const extname = filetype.test(path.extname(file.originalname));
+      if (mimetype && extname) {
+        return cb(null, true);
+      }
+      cb("Error, Archivo debe ser un formato de imagen valido");
+    },
+  }).single("image")
+);
 
 server.use("/api", require("./routes"));
 
