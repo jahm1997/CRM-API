@@ -1,6 +1,5 @@
 const { Router } = require("express");
 // Importar todos los routers;
-const signUpRouter = require("./signupRouter.js");
 const loginRouter = require("./loginRouter.js");
 const bossRouter = require("./bossRouter.js");
 const clientsRouter = require("./clientsRouter.js");
@@ -28,7 +27,6 @@ router.use("/", sale_productsRouter);
 router.use("/", taskRouter);
 router.use("/", categoryRouter);
 router.use("/", dashboard_salesmanRouter);
-router.use("/", signUpRouter);
 router.use("/", loginRouter);
 router.use("/", dashboard_bossRouter);
 router.use('/', paymentRouter);

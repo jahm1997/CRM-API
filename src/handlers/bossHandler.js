@@ -33,9 +33,9 @@ const getBoss = async (req, res) => {
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postBoss = async (req, res) => {
+  //data={name,username,email,password}
   const data = req.body;
   try {
-    //Crear/Agregar nuevo cliente
     let boss = await createBoss(data);
     const jefe = { ...boss.dataValues }
     jefe.role = 'admin'
