@@ -6,7 +6,7 @@ const updateProduct = require("../controllers/products/modifyProduct.js");
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getProducts = async (req, res) => {
-  const data = req.query
+  const data = req.query;
   try {
     let products = await allProducts(data);
     res.status(200).send(products);
@@ -18,8 +18,11 @@ const getProducts = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postProduct = async (req, res) => {
   const data = req.body;
+  const { path } = req.file;
   try {
-    const response = await createProduct(data);
+    const img = fs.readFileSync(path).buffer;
+    const image = await uploadFile(img, "products");
+    const response = await createProduct({ ...data, ...img });
     res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
