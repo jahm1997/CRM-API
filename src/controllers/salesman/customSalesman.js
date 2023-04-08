@@ -17,6 +17,7 @@ module.exports = async(salesmanDB) => {
         "updatedAt": updatedAt,
         "bossId": bossId,
         avgFeedback,
-        total_monthly_sales
+        total_monthly_sales,
+        role:'seller'
     }
 }

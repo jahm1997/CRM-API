@@ -13,11 +13,18 @@ const getBoss = async (req, res) => {
     if (id) {
       //Si existe el producto con ese id que devuelva unicamente a ese producto
       const boss = await getBossById(id);
-      res.status(200).json(boss);
+      const jefe = { ...boss.dataValues }
+      jefe.role = 'admin'
+      res.status(200).json(jefe);
     } else {
       //Funcion a llamar para traer todos los productos
       const allBosses = await getAllBosses();
-      res.status(200).json(allBosses);
+      const jefes = allBosses.map((b) => {
+        const jefe = { ...b.dataValues }
+        jefe.role = 'admin'
+        return jefe
+      })
+      res.status(200).json(jefes);
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -30,7 +37,9 @@ const postBoss = async (req, res) => {
   try {
     //Crear/Agregar nuevo cliente
     let boss = await createBoss(data);
-    res.status(200).send(boss);
+    const jefe = { ...boss.dataValues }
+    jefe.role = 'admin'
+    res.status(200).send(jefe);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -42,7 +51,9 @@ const putBoss = async (req, res) => {
   try {
     //
     const response = await updateBoss(data);
-    res.status(200).send(response);
+    const jefe = { ...response.dataValues }
+    jefe.role = 'admin'
+    res.status(200).send(jefe);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
