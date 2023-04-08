@@ -1,25 +1,18 @@
-const { Salesman, Boss } = require("../../db.js");
+const { Salesman } = require("../../db.js");
 const bcrypt = require("bcrypt");
+const getAllSalesman = require("./getAllSalesman.js");
 
-const createSalesman = async ({
-  name,
-  address,
-  email,
-  password,
-  phone,
-  enable,
-}) => {
-  const temp = await Boss.findAll();
-  const salesman = await Salesman.create({
-    name,
-    address,
-    email,
-    password: bcrypt.hashSync(password, 10),
-    phone,
-    enable,
-    bossId: temp[Math.floor(Math.random() * temp.length)].id,
-  });
+const createSalesman = async (data) => {
+  const {password, bossId } = data
 
-  return salesman;
-};
+  if (bossId != null) {
+    const salesman = await Salesman.create({
+      ...data,
+      password: bcrypt.hashSync(password, 10),
+    });
+    return getAllSalesman(salesman.dataValues.id);
+  } else {
+    throw new Error('bossId is undefined')
+  }
+}
 module.exports = createSalesman;
