@@ -32,7 +32,7 @@ module.exports = async (id) => {
     });
 
 
-    const annual_sales = {}
+    let annual_sales = {}
     const month = [
         'Enero', 'Febrero', 'Marzo', 'Abril',
         'Mayo', 'Junio', 'Julio', 'Agosto',
@@ -42,12 +42,16 @@ module.exports = async (id) => {
         const { quantitySale, priceSale, activity } = sale.dataValues
         const m = activity.dataValues.createdAt.getMonth()
         const year = activity.dataValues.createdAt.getFullYear()
-        const date=`${month[m]}/${year}`
+        const date = `${month[m]}/${year}`
         if (annual_sales[date]) {
             annual_sales[date] += quantitySale * priceSale
         } else {
             annual_sales[date] = quantitySale * priceSale
         }
+    });
+
+    annual_sales = Object.entries(annual_sales).map(([month, value]) => {
+        return { month, value };
     });
 
     return annual_sales
