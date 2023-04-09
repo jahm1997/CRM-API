@@ -17,6 +17,7 @@ const getClients = async (req, res) => {
       res.json(resultadoFinal);
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

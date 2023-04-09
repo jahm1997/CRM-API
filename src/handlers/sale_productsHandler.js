@@ -6,11 +6,12 @@ const updateSaleProducts = require("../controllers/sale_products/modifySaleProdu
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getSaleProducts = async (req, res) => {
-  const { id, activityId } = req.query
+  const { id, activityId } = req.query;
   try {
     const sale_products = await fgetSaleProducts({ id, activityId });
     res.status(200).send(sale_products);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -22,6 +23,7 @@ const postSaleProduct = async (req, res) => {
     const response = await createSaleProducts(data);
     res.status(200).send(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -33,6 +35,7 @@ const putSaleProduct = async (req, res) => {
     const response = await updateSaleProducts(data);
     res.status(200).send(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

@@ -1,23 +1,39 @@
-const { Boss } = require('../../db.js');
-const getBossById = require('./getBossById.js');
+const { Boss } = require("../../db.js");
+const getBossById = require("./getBossById.js");
+const fs = require("fs");
+const uploadFile = require("../../firebase.js");
 
-const updateBoss = async (data) => {
+const updateBoss = async (data, path) => {
   //data={id,method,state,from,to,message,subject,attached,saleman_id,***sale_id}
-  const dataAct = { ...data }
-  const id = dataAct.id
-  delete dataAct.id
-  const [resultado] = await Boss.update(dataAct, {
-    where: {
-      id,
-    }
-  })
+  if (path) {
+    const img = fs.readFileSync(path).buffer;
+    const logo = await uploadFile(img, "boss");
+    const dataAct = { ...data, logo };
+    const id = dataAct.id;
+    delete dataAct.id;
+    var [resultado] = await Boss.update(dataAct, {
+      where: {
+        id,
+      },
+    });
+  } else {
+    const dataAct = { ...data };
+    const id = dataAct.id;
+    delete dataAct.id;
+    var [resultado] = await Boss.update(dataAct, {
+      where: {
+        id,
+      },
+    });
+  }
 
   if (resultado) {
-    const boss = await getBossById(id)
-    return boss
-  }
-  else
-    throw new Error('Failed to update, missing information')
-}
+    const boss = await getBossById(id);
+    return {
+      ...boss.datavalues,
+      role: "admin",
+    };
+  } else throw new Error("Failed to update, missing information");
+};
 
 module.exports = updateBoss;

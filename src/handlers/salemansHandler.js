@@ -6,37 +6,47 @@ const modifySalesman = require("../controllers/salesman/modifySalesman");
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
 const getSalemans = async (req, res) => {
-  const data = req.query;
   try {
-    const response = await getAllSalesman(data);
-    res.status(200).json(response)
+    const response = await getAllSalesman(req.query);
+    res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postSaleman = async (req, res) => {
-  const data = req.body;
+  const data = JSON.parse(req.body.productData); //ALERT!!!!
   try {
     if (data.bossId) {
-      const response = await createSalesman(data);
+      if (req.file.path) {
+        var response = await createSalesman(data, req.file.path);
+      } else {
+        var response = await createSalesman(data);
+      }
       res.status(201).json(response);
     } else {
       res.status(400).send("No ha relacionado a ningun Jefe");
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putSaleman = async (req, res) => {
-  const body = req.body;
+  const data = JSON.parse(req.body.productData); //ALERT!!!
   try {
-    const response = await modifySalesman(body);
+    if (req.file.path) {
+      var response = await modifySalesman(data, req.file.path);
+    } else {
+      var response = await modifySalesman(data);
+    }
     res.status(200).send(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

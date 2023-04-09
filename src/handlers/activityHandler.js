@@ -13,6 +13,7 @@ const getActivity = async (req, res) => {
     const response = await getActivities({ id, clientId, salesmanId });
     res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -28,6 +29,7 @@ const postActivity = async (req, res) => {
       res.status(400).send({ error: error.message });
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -39,6 +41,7 @@ const putActivity = async (req, res) => {
     const response = await updateActivities(data);
     res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

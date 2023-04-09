@@ -11,20 +11,11 @@ const getBoss = async (req, res) => {
   const { id } = req.query;
   try {
     if (id) {
-      //Si existe el producto con ese id que devuelva unicamente a ese producto
       const boss = await getBossById(id);
-      const jefe = { ...boss.dataValues };
-      jefe.role = "admin";
-      res.status(200).json(jefe);
+      res.status(200).json(boss);
     } else {
-      //Funcion a llamar para traer todos los productos
       const allBosses = await getAllBosses();
-      const jefes = allBosses.map((b) => {
-        const jefe = { ...b.dataValues };
-        jefe.role = "admin";
-        return jefe;
-      });
-      res.status(200).json(jefes);
+      res.status(200).json(allBosses);
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -34,27 +25,33 @@ const getBoss = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postBoss = async (req, res) => {
   //data={name,username,email,password}
-  const data = req.body;
+  const data = JSON.parse(req.body.productData); //ALERT!!!!
+
   try {
-    let boss = await createBoss(data);
-    const jefe = { ...boss.dataValues };
-    jefe.role = "admin";
-    res.status(200).send(jefe);
+    if (req.file.path) {
+      var boss = await createBoss(data, req.file.path);
+    } else {
+      var boss = await createBoss(data);
+    }
+    res.status(200).send(boss);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putBoss = async (req, res) => {
-  const data = req.body;
+  const data = JSON.parse(req.body.productData); //ALERT!!!!!
   try {
-    //
-    const response = await updateBoss(data);
-    const jefe = { ...response.dataValues };
-    jefe.role = "admin";
-    res.status(200).send(jefe);
+    if (req.file.path) {
+      var response = await updateBoss(data, req.file.path);
+    } else {
+      var response = await updateBoss(data);
+    }
+    res.status(200).send(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };

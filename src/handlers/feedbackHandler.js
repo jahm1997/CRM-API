@@ -13,6 +13,7 @@ const getFeedbacks = async (req, res) => {
     const response = await getFeedback({ id, salesmanId });
     res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -28,6 +29,7 @@ const postFeedback = async (req, res) => {
       res.status(400).send("No ha relacionado a un vendedor");
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
