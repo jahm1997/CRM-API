@@ -2,6 +2,7 @@
 const getTasks = require("../controllers/tasks/getTasks.js");
 const createTask = require("../controllers/tasks/createTask.js");
 const updateTask = require("../controllers/tasks/updateTask.js");
+const fdeleteTask = require("../controllers/tasks/deleteTask.js");
 //Aca deberiamos de importar nuestros controllers
 
 //----------------------------------- HANDLERS GETS -----------------------------------\\
@@ -44,16 +45,19 @@ const putTask = async (req, res) => {
   }
 };
 //----------------------------------- HANDLERS DELETE -----------------------------------\\
-/* const deleteActivity = async (req, res) => {
+const deleteTask = async (req, res) => {
+  const { id } = req.query;
   try {
-    //
+    const response = await fdeleteTask(id);
+    res.status(200).json(response);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}; */
+};
 
 module.exports = {
   getTask,
   postTask,
   putTask,
+  deleteTask,
 };
