@@ -34,10 +34,18 @@ const postProduct = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putProduct = async (req, res) => {
-  const data = req.body;
   try {
-    const response = await updateProduct(data);
-    res.status(200).send(response);
+    if (req.file.path) {
+      const data = JSON.parse(req.body.productData);
+      const img = fs.readFileSync(path).buffer;
+      const image = await uploadFile(img, "products");
+      const response = await updateProduct({ ...data, image });
+      res.status(200).send(response);
+    } else {
+      const data = JSON.parse(req.body.productData);
+      const response = await updateProduct(data);
+      res.status(200).send(response);
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
