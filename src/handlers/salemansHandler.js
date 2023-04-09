@@ -17,7 +17,7 @@ const getSalemans = async (req, res) => {
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postSaleman = async (req, res) => {
-  const data = JSON.parse(req.body.productData); //ALERT!!!!
+  const data = JSON.parse(req.body.sellerData);
   console.log(data);
   try {
     if (data.bossId) {
@@ -38,7 +38,7 @@ const postSaleman = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putSaleman = async (req, res) => {
-  const data = JSON.parse(req.body.productData); //ALERT!!!
+  const data = JSON.parse(req.body.sellerData);
   console.log(data);
   try {
     if (req.file) {

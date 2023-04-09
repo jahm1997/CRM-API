@@ -25,9 +25,7 @@ const getBoss = async (req, res) => {
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postBoss = async (req, res) => {
-  //data={name,username,email,password}
-  const data = JSON.parse(req.body.LoginData); //ALERT!!!!
-  console.log(data);
+  const data = JSON.parse(req.body.formLogin);
   try {
     if (req.file) {
       var boss = await createBoss(data, req.file.path);
@@ -43,7 +41,7 @@ const postBoss = async (req, res) => {
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putBoss = async (req, res) => {
-  const data = JSON.parse(req.body.loginData); //ALERT!!!!!
+  const data = JSON.parse(req.body.formLogin);
   console.log(data);
   try {
     if (req.file) {
