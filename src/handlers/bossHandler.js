@@ -28,7 +28,7 @@ const postBoss = async (req, res) => {
   const data = JSON.parse(req.body.productData); //ALERT!!!!
 
   try {
-    if (req.file.path) {
+    if (req.file) {
       var boss = await createBoss(data, req.file.path);
     } else {
       var boss = await createBoss(data);
@@ -44,7 +44,7 @@ const postBoss = async (req, res) => {
 const putBoss = async (req, res) => {
   const data = JSON.parse(req.body.productData); //ALERT!!!!!
   try {
-    if (req.file.path) {
+    if (req.file) {
       var response = await updateBoss(data, req.file.path);
     } else {
       var response = await updateBoss(data);

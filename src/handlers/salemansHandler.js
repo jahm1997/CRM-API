@@ -20,7 +20,7 @@ const postSaleman = async (req, res) => {
   const data = JSON.parse(req.body.productData); //ALERT!!!!
   try {
     if (data.bossId) {
-      if (req.file.path) {
+      if (req.file) {
         var response = await createSalesman(data, req.file.path);
       } else {
         var response = await createSalesman(data);
@@ -39,7 +39,7 @@ const postSaleman = async (req, res) => {
 const putSaleman = async (req, res) => {
   const data = JSON.parse(req.body.productData); //ALERT!!!
   try {
-    if (req.file.path) {
+    if (req.file) {
       var response = await modifySalesman(data, req.file.path);
     } else {
       var response = await modifySalesman(data);

@@ -8,7 +8,7 @@ const updateProduct = async (data, path) => {
     const img = fs.readFileSync(path).buffer;
     const image = await uploadFile(img, "products");
     const dataAct = { ...data, image };
-    const id = dataAct.id;
+    var id = dataAct.id;
     delete dataAct.id;
     var [resultado] = await Product.update(dataAct, {
       where: {
@@ -17,7 +17,7 @@ const updateProduct = async (data, path) => {
     });
   } else {
     const dataAct = { ...data };
-    const id = dataAct.id;
+    var id = dataAct.id;
     delete dataAct.id;
     var [resultado] = await Product.update(dataAct, {
       where: {

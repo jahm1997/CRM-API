@@ -19,7 +19,7 @@ const getProducts = async (req, res) => {
 const postProduct = async (req, res) => {
   const data = JSON.parse(req.body.productData);
   try {
-    if (req.file.path) {
+    if (req.file) {
       var response = await createProduct(data, req.file.path);
     } else {
       var response = await createProduct(data);
@@ -35,7 +35,7 @@ const postProduct = async (req, res) => {
 const putProduct = async (req, res) => {
   const data = JSON.parse(req.body.productData);
   try {
-    if (req.file.path) {
+    if (req.file) {
       var response = await updateProduct(data, req.file.path);
     } else {
       var response = await updateProduct(data);
