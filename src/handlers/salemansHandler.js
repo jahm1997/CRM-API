@@ -10,7 +10,7 @@ const getSalemans = async (req, res) => {
     const response = await getAllSalesman(req.query);
     res.status(200).json(response);
   } catch (error) {
-    console.log(error);
+    console.log("Error en salesmanhandler", error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -18,6 +18,7 @@ const getSalemans = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postSaleman = async (req, res) => {
   const data = JSON.parse(req.body.productData); //ALERT!!!!
+  console.log(data);
   try {
     if (data.bossId) {
       if (req.file) {
@@ -30,7 +31,7 @@ const postSaleman = async (req, res) => {
       res.status(400).send("No ha relacionado a ningun Jefe");
     }
   } catch (error) {
-    console.log(error);
+    console.log("Error en salesmanhandler", error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -38,6 +39,7 @@ const postSaleman = async (req, res) => {
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putSaleman = async (req, res) => {
   const data = JSON.parse(req.body.productData); //ALERT!!!
+  console.log(data);
   try {
     if (req.file) {
       var response = await modifySalesman(data, req.file.path);
@@ -46,7 +48,7 @@ const putSaleman = async (req, res) => {
     }
     res.status(200).send(response);
   } catch (error) {
-    console.log(error);
+    console.log("Error en salesmanhandler", error);
     res.status(400).json({ error: error.message });
   }
 };

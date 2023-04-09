@@ -18,6 +18,7 @@ const getBoss = async (req, res) => {
       res.status(200).json(allBosses);
     }
   } catch (error) {
+    console.log("Error en bosshandler", error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -25,8 +26,8 @@ const getBoss = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postBoss = async (req, res) => {
   //data={name,username,email,password}
-  const data = JSON.parse(req.body.productData); //ALERT!!!!
-
+  const data = JSON.parse(req.body.LoginData); //ALERT!!!!
+  console.log(data);
   try {
     if (req.file) {
       var boss = await createBoss(data, req.file.path);
@@ -35,14 +36,15 @@ const postBoss = async (req, res) => {
     }
     res.status(200).send(boss);
   } catch (error) {
-    console.log(error);
+    console.log("Error en bosshandler", error);
     res.status(400).json({ error: error.message });
   }
 };
 
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putBoss = async (req, res) => {
-  const data = JSON.parse(req.body.productData); //ALERT!!!!!
+  const data = JSON.parse(req.body.loginData); //ALERT!!!!!
+  console.log(data);
   try {
     if (req.file) {
       var response = await updateBoss(data, req.file.path);
@@ -51,7 +53,7 @@ const putBoss = async (req, res) => {
     }
     res.status(200).send(response);
   } catch (error) {
-    console.log(error);
+    console.log("Error en bosshandler", error);
     res.status(400).json({ error: error.message });
   }
 };

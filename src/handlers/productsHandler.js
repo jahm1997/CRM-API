@@ -10,7 +10,7 @@ const getProducts = async (req, res) => {
     let products = await allProducts(req.query);
     res.status(200).send(products);
   } catch (error) {
-    console.log(error);
+    console.log("Error en producthandler", error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -18,6 +18,7 @@ const getProducts = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postProduct = async (req, res) => {
   const data = JSON.parse(req.body.productData);
+  console.log(data);
   try {
     if (req.file) {
       var response = await createProduct(data, req.file.path);
@@ -26,7 +27,7 @@ const postProduct = async (req, res) => {
     }
     res.status(200).json(response);
   } catch (error) {
-    console.log(error);
+    console.log("Error en producthandler", error);
     res.status(400).json({ error: error.message });
   }
 };
@@ -34,6 +35,7 @@ const postProduct = async (req, res) => {
 //----------------------------------- HANDLERS PUT -----------------------------------\\
 const putProduct = async (req, res) => {
   const data = JSON.parse(req.body.productData);
+  console.log(data);
   try {
     if (req.file) {
       var response = await updateProduct(data, req.file.path);
@@ -42,7 +44,7 @@ const putProduct = async (req, res) => {
     }
     res.status(200).send(response);
   } catch (error) {
-    console.log(error);
+    console.log("Error en producthandler", error);
     res.status(400).json({ error: error.message });
   }
 };
