@@ -30,16 +30,16 @@ server.use((req, res, next) => {
 server.set("src", path.join(__dirname, "src"));
 server.set("src engine", "ejs");
 
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, "./public/images"),
-  filename: function (req, file, cb) {
-    cb(null, req.body.name + "-" + file.originalname);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: path.join(__dirname, "./public/images"),
+//   filename: function (req, file, cb) {
+//     cb(null, req.body.name + "-" + file.originalname);
+//   },
+// });
 
 server.use(
   multer({
-    storage,
+    // storage,
     dest: path.join(__dirname, "./public/images"),
     fileFilter: function (req, file, cb) {
       const filetype = /jpeg|jpg|png|gif/;

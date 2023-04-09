@@ -19,7 +19,7 @@ const getProducts = async (req, res) => {
 
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postProduct = async (req, res) => {
-  const data = req.body;
+  const data = JSON.parse(req.body.productData);
   const { path } = req.file;
   try {
     const img = fs.readFileSync(path).buffer;
@@ -27,6 +27,7 @@ const postProduct = async (req, res) => {
     const response = await createProduct({ ...data, image });
     res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
