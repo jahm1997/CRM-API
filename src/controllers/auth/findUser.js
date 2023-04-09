@@ -1,20 +1,25 @@
 const { Salesman, Boss } = require("../../db.js");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 // const createBoss = require("../Bosses/CreateBoss.js");
 
 
-module.exports = async (email) => {
+module.exports = async (email, password) => {
 
   try {
     let boss = await Boss.findOne({ where: { email: email } });
 
+    console.log('***********PASSWORD********', password)
     if (!boss) {
       let salesman = await Salesman.findOne({ where: { email: email } });
-      return { ...salesman.dataValues, role: "seller" };
+      if (bcrypt.compareSync(password, salesman.dataValues['password'])) {
+        return { ...salesman.dataValues, role: "seller" };
+      }
     }
 
-    return { ...boss.dataValues, role: "admin" };
-
+    if (bcrypt.compareSync(password, boss.dataValues['password'])) {
+      return { ...boss.dataValues, role: "admin" };
+    }
+    
   } catch (error) {
     return { error: error.message }
   }

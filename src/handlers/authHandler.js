@@ -6,14 +6,14 @@ const {serialize} = require('cookie');
 const loginUser = async (req, res) => {
   const { email, password, status } = req.body;
   try {
-    let exist = await findUser(email);
+    let exist = await findUser(email, password);
 
-    // console.log(exist);
+    console.log('------EXIST------',exist);
 
     if(exist) {
-      if(password !== exist.password) {
-        throw new Error('ya fuiste pa');
-      }
+      // if(password !== exist.password) {
+      //   throw new Error('ya fuiste pa');
+      // }
 
       const token = jwt.sign({
         exp: Math.floor(Date.now()/1000) * 60 * 60 * 24 * 7,
@@ -22,7 +22,7 @@ const loginUser = async (req, res) => {
         email: exist.email,
         password: exist.password
       }, "secret")
-      console.log('************** TOKEN **************',token)
+      // console.log('************** TOKEN **************',token)
 
       const serialized = serialize('token', token, {
         httpOnly: true,
@@ -32,7 +32,7 @@ const loginUser = async (req, res) => {
         path: '/'
       })
 
-      console.log('********** SERIALIZED ************', serialized);
+      // console.log('********** SERIALIZED ************', serialized);
 
       res.setHeader('Set-Cookie', serialized)
       res.send('hola');
