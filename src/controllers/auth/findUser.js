@@ -8,25 +8,23 @@ module.exports = async (email, password) => {
   try {
     let boss = await Boss.findOne({ where: { email: email } });
 
-    console.log('***********PASSWORD********', password)
+    // console.log('***********PASSWORD********', password)
     if (!boss) {
       let salesman = await Salesman.findOne({ where: { email: email } });
       if (bcrypt.compareSync(password, salesman.dataValues['password'])) {
         return { ...salesman.dataValues, role: "seller" };
-      // }
-      // if(password === salesman.dataValues.password) {
-      //   return { ...salesman.dataValues, role: "seller" };
       }
+      // if (password === salesman.dataValues.password) {
+      //   return { ...salesman.dataValues, role: "seller" };
+      // }
     }
 
     if (bcrypt.compareSync(password, boss.dataValues['password'])) {
       return { ...boss.dataValues, role: "admin" };
-    // }
-    // if(password === boss.dataValues.password) {
-    //   return { ...boss.dataValues, role: "admin" };
     }
-
-
+    // if (password === boss.dataValues.password) {
+    //   return { ...boss.dataValues, role: "admin" };
+    // }
   } catch (error) {
     return { error: error.message }
   }
