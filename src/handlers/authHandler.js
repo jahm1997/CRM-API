@@ -36,9 +36,11 @@ const loginUser = async (req, res) => {
 
       res.setHeader('Set-Cookie', serialized)
       res.send('hola');
-    }
+    } else {
 
-    throw new Error('no había usuario ni en boss ni en salesman')
+      throw new Error('no había usuario ni en boss ni en salesman');
+
+    }
 
   } catch (error) {
     console.log(error);
