@@ -43,6 +43,7 @@ server.use(morgan("dev"));
 //   // res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
 //   next();
 // });
+server.options('*', cors(corsOptions));
 
 server.use(cors(corsOptions));
 
