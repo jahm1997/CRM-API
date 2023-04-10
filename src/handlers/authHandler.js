@@ -33,7 +33,7 @@ const loginUser = async (req, res) => {
       })
       // console.log('********** SERIALIZED ************', serialized);
 
-      res.setHeader('set-Cookie', serialized)
+      res.setHeader('Set-Cookie', serialized)
 
       // console.log('******RES******',res);
       return res.json('Login succesfully');
