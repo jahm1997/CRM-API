@@ -14,7 +14,7 @@ const server = express();
 server.name = "API";
 
 const corsOptions = {
-  origin: 'https://crm-front-alcsbpilt-cristopherareche.vercel.app',
+  origin: '*',
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
   credentials: true,
