@@ -26,7 +26,7 @@ const loginUser = async (req, res) => {
 
       const serialized = serialize('token', token, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: 'none',
         maxAge: 1000 * 60 * 60 * 24 * 7,
         path: '/'
@@ -35,7 +35,7 @@ const loginUser = async (req, res) => {
       // console.log('********** SERIALIZED ************', serialized);
 
       res.setHeader('Set-Cookie', serialized)
-      res.send('hola');
+      return res.json('Login succesfully');
     } else {
 
       throw new Error('no había usuario ni en boss ni en salesman');
