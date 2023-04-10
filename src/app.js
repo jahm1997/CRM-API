@@ -18,6 +18,7 @@ const corsOptions = {
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
   credentials: true,
+  preflightContinue: true
 };
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
