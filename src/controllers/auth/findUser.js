@@ -13,13 +13,20 @@ module.exports = async (email, password) => {
       let salesman = await Salesman.findOne({ where: { email: email } });
       if (bcrypt.compareSync(password, salesman.dataValues['password'])) {
         return { ...salesman.dataValues, role: "seller" };
+      // }
+      // if(password === salesman.dataValues.password) {
+      //   return { ...salesman.dataValues, role: "seller" };
       }
     }
 
     if (bcrypt.compareSync(password, boss.dataValues['password'])) {
       return { ...boss.dataValues, role: "admin" };
+    // }
+    // if(password === boss.dataValues.password) {
+    //   return { ...boss.dataValues, role: "admin" };
     }
-    
+
+
   } catch (error) {
     return { error: error.message }
   }

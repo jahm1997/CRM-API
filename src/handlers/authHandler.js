@@ -26,14 +26,16 @@ const loginUser = async (req, res) => {
 
       const serialized = serialize('token', token, {
         httpOnly: false,
-        secure: false,
+        secure: true,
         sameSite: 'none',
         maxAge: 1000 * 60 * 60 * 24 * 7,
         path: '/'
       })
       // console.log('********** SERIALIZED ************', serialized);
 
-      res.setHeader('Set-Cookie', serialized)
+      res.setHeader('set-Cookie', serialized)
+
+      // console.log('******RES******',res);
       return res.json('Login succesfully');
     } else {
 
@@ -42,7 +44,7 @@ const loginUser = async (req, res) => {
     }
 
   } catch (error) {
-    // console.log(error);
+    console.log(error);
     res.status(400).json({ error: error.message });
   }
 };
