@@ -25,9 +25,9 @@ const loginUser = async (req, res) => {
       // console.log('************** TOKEN **************',token)
 
       const serialized = serialize('token', token, {
-        httpOnly: false,
-        secure: false,
-        sameSite: 'none',
+        httpOnly: true,
+        secure: true,
+        sameSite: 'lax',
         maxAge: 1000 * 60 * 60 * 24 * 7,
         path: '/'
       })
