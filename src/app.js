@@ -13,36 +13,37 @@ const server = express();
 
 server.name = "API";
 
-const corsOptions = {
+/* const corsOptions = {
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
   credentials: true,
   preflightContinue: true
-};
+}; */
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
-// server.use((req, res, next) => {
-//   cors({
-//     origin: 'http://localhost:3000',
-//     methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
-//     allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
-//     credentials: true,
-//     preflightContinue: true
-//   })
+server.use((req, res, next) => {
+  // cors({
+  //   origin: 'http://localhost:3000',
+  //   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE'],
+  //   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
+  //   credentials: true,
+  //   preflightContinue: true
+  // })
   
-//   // res.header("Access-Control-Allow-Origin", "http://localhost:3000/authentication"); // update to match the domain you will make the request from
-//   // res.header("Access-Control-Allow-Credentials", "true");
-//   // res.header(
-//   //   "Access-Control-Allow-Headers",
-//   //   "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-//   // );
-//   // res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
-//   next();
-// });
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000/authentication"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  res.header('Access-Control-Expose-Header', 'Set-Cookie')
+  next();
+});
 server.options('*', cors(corsOptions));
 
 server.use(cors(corsOptions));

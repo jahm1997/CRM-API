@@ -21,7 +21,9 @@ const loginUser = async (req, res) => {
         name: exist.name,
         email: exist.email,
         password: exist.password
-      }, "secret")
+      }, "secret",(err, token)=>{
+        res.json({token})
+      })
       // console.log('************** TOKEN **************',token)
 
       const serialized = serialize('token', token, {
@@ -36,7 +38,7 @@ const loginUser = async (req, res) => {
       res.setHeader('Set-Cookie', serialized)
 
       // console.log('******RES******',res);
-      return res.json('Login succesfully');
+      return res.json({success:true, token});
     } else {
 
       throw new Error('no había usuario ni en boss ni en salesman');
