@@ -21,9 +21,7 @@ const loginUser = async (req, res) => {
         name: exist.name,
         email: exist.email,
         password: exist.password
-      }, "secret",(err, token)=>{
-        res.json({token})
-      })
+      }, "secret")
       // console.log('************** TOKEN **************',token)
 
       const serialized = serialize('token', token, {
