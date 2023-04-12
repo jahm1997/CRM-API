@@ -34,7 +34,7 @@ server.use((req, res, next) => {
   //   preflightContinue: true
   // })
   
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000, https://crm-front-n1a6znp3q-cristopherareche.vercel.app"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",
