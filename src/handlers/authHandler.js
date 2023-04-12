@@ -1,10 +1,11 @@
 // const { name } = require("../app.js");
 const findUser = require("../controllers/auth/findUser.js");
 const jwt = require('jsonwebtoken');
-const {serialize} = require('cookie');
+// const {serialize} = require('cookie');
 
 const loginUser = async (req, res) => {
   const { email, password, status } = req.body;
+  console.log(req);
   try {
     let exist = await findUser(email, password);
 
@@ -24,16 +25,16 @@ const loginUser = async (req, res) => {
       }, "secret")
       // console.log('************** TOKEN **************',token)
 
-      const serialized = serialize('token', token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        path: '/'
-      })
+      // const serialized = serialize('token', token, {
+      //   httpOnly: true,
+      //   secure: true,
+      //   sameSite: 'none',
+      //   maxAge: 1000 * 60 * 60 * 24 * 7,
+      //   path: '/'
+      // })
       // console.log('********** SERIALIZED ************', serialized);
 
-      res.setHeader('Set-Cookie', serialized)
+      // res.setHeader('Set-Cookie', serialized)
 
       // console.log('******RES******',res);
       return res.json({success:true, token});
