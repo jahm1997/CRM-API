@@ -11,7 +11,9 @@ const getAllSalesman = async (data) => {
     const salesman = await Salesman.findByPk(id, {
       include: [
         {
-          model: Feedback
+          model: Feedback,
+          order: [["createdAt", "DESC"]],
+          limit: 50,
         }
       ],
     });
@@ -33,7 +35,9 @@ const getAllSalesman = async (data) => {
 
         include: [
           {
-            model: Feedback
+            model: Feedback,
+            order: [["createdAt", "DESC"]],
+            limit: 50,
           }
         ],
 
@@ -56,6 +60,8 @@ const getAllSalesman = async (data) => {
       include: [
         {
           model: Feedback,
+          order: [["createdAt", "DESC"]],
+          limit: 50,
         }
       ],
     }
