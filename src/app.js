@@ -33,7 +33,7 @@ server.use((req, res, next) => {
   //   credentials: true,
   //   preflightContinue: true
   // })
-  const urls = "https://crm-front-n1a6znp3q-cristopherareche.vercel.app, http://localhost:3000"
+  const urls = "http://localhost:3000"
   
   res.header("Access-Control-Allow-Origin", '*'); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");

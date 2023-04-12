@@ -1,7 +1,7 @@
 // const { name } = require("../app.js");
 const findUser = require("../controllers/auth/findUser.js");
 const jwt = require('jsonwebtoken');
-const {serialize} = require('cookie');
+// const {serialize} = require('cookie');
 
 const loginUser = async (req, res) => {
   const { email, password, status } = req.body;
