@@ -11,6 +11,7 @@ module.exports = (database) => {
     name: {
       type: DataTypes.STRING,
       validate: {
+        is: /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
         len: [3, 40],
       },
     },
@@ -40,7 +41,7 @@ module.exports = (database) => {
     enable: {
       type: DataTypes.BOOLEAN,
     },
-    image:{
+    image: {
       type: DataTypes.STRING,
     },
   });
