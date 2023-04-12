@@ -44,9 +44,9 @@ server.use((req, res, next) => {
   res.header('Access-Control-Expose-Header', 'Set-Cookie')
   next();
 });
-server.options('*', cors(corsOptions));
+// server.options('*', cors(corsOptions));
 
-server.use(cors(corsOptions));
+// server.use(cors(corsOptions));
 
 server.set("src", path.join(__dirname, "src"));
 server.set("src engine", "ejs");
