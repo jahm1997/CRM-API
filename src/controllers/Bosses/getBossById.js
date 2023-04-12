@@ -6,7 +6,7 @@ module.exports = async (id) => {
   if (id) {
     const boss = await Boss.findByPk(id);
     return {
-      ...boss.datavalues,
+      ...boss.dataValues,
       role: "admin",
     };
   }

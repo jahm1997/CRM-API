@@ -1,6 +1,8 @@
 const { Salesman } = require("../../db.js");
+const getBossById = require("../Bosses/getBossById.js");
 const bcrypt = require("bcrypt");
 const getAllSalesman = require("./getAllSalesman.js");
+const { sendMail } = require("../email/notifyNewSalesman.js");
 const fs = require("fs");
 const uploadFile = require("../../firebase.js");
 
@@ -11,19 +13,23 @@ const createSalesman = async (data, path) => {
     if (path) {
       const img = fs.readFileSync(path).buffer;
       const image = await uploadFile(img, "salesman");
-      const salesman = await Salesman.create({
+      var salesman = await Salesman.create({
         ...data,
         password: bcrypt.hashSync(password, 10),
         image,
       });
-      return getAllSalesman({ id: salesman.dataValues.id });
     } else {
-      const salesman = await Salesman.create({
+      var salesman = await Salesman.create({
         ...data,
         password: bcrypt.hashSync(password, 10),
+        password: password,
       });
-      return getAllSalesman({ id: salesman.dataValues.id });
     }
+    const boss = await getBossById(bossId);
+
+    sendMail(salesman.dataValues, boss);
+
+    return getAllSalesman({ id: salesman.dataValues.id });
   } else {
     throw new Error("bossId is undefined");
   }

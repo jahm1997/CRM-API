@@ -21,6 +21,7 @@ const getActivity = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postActivity = async (req, res) => {
   const data = req.body;
+  console.log(data);
   try {
     if (data.clientId && data.salesmanId) {
       const response = await createActivities(data);
