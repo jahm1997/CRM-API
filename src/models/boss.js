@@ -13,6 +13,7 @@ module.exports = (database) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
+          is: /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
           len: [3, 40],
         },
       },
@@ -25,6 +26,9 @@ module.exports = (database) => {
       },
       company: {
         type: DataTypes.STRING,
+        validate: {
+          len: [3, 55],
+        },
       },
       company_description: {
         type: DataTypes.STRING,
