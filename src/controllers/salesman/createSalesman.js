@@ -22,7 +22,6 @@ const createSalesman = async (data, path) => {
       var salesman = await Salesman.create({
         ...data,
         password: bcrypt.hashSync(password, 10),
-        password: password,
       });
     }
     const boss = await getBossById(bossId);
