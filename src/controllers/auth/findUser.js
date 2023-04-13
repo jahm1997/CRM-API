@@ -1,68 +1,87 @@
 const { Salesman, Boss } = require("../../db.js");
 const bcrypt = require("bcrypt");
-// const createBoss = require("../Bosses/CreateBoss.js");
+const jwt = require('jsonwebtoken');
+const createBoss = require("../Bosses/CreateBoss.js");
 
-
-module.exports = async (email, password) => {
-
-  try {
-    let boss = await Boss.findOne({ where: { email: email } });
-
-    // console.log('***********PASSWORD********', password)
-    if (!boss) {
-      let salesman = await Salesman.findOne({ where: { email: email } });
-      if (bcrypt.compareSync(password, salesman.dataValues['password'])) {
-        return { ...salesman.dataValues, role: "seller" };
-      }
-      // if (password === salesman.dataValues.password) {
-      //   return { ...salesman.dataValues, role: "seller" };
-      // }
-    }
-
-    if (bcrypt.compareSync(password, boss.dataValues['password'])) {
-      return { ...boss.dataValues, role: "admin" };
-    }
-    // if (password === boss.dataValues.password) {
-    //   return { ...boss.dataValues, role: "admin" };
-    // }
-  } catch (error) {
-    return { error: error.message }
-  }
+const createToken = (user, role) => {
+  const token = jwt.sign({
+    exp: Math.floor(Date.now() / 1000) * 60 * 60 * 24 * 7,
+    ...user.dataValues,
+    role
+  }, "secret")
+  return { success: true, token };
 }
 
+module.exports = async (data) => {
 
+  const { email, password, name, nickname } = data
 
-// if (status === 'login') {
-//   let salesman = await Salesman.findOne({ where: { email: email } });
-//   if (salesman !== null) {
-//     if (password !== null) {
-//       if (bcrypt.compareSync(password, salesman['password']))
-//         return { ...salesman.dataValues, role: "seller" };
-//       else
-//         throw new Error('Salesman Password Incorrect')
+  let salesman = await Salesman.findOne({ where: { email: email } });
+  if (salesman !== null) {
+    if (password !== null) {
+      if (bcrypt.compareSync(password, salesman['password']))
+        return createToken(salesman, 'seller');
+      else
+        throw new Error('Salesman Password Incorrect')
+    }
+  }
+
+  let boss = await Boss.findOne({ where: { email: email } });
+  if (boss !== null) {
+    if (password !== null) {
+      if (bcrypt.compareSync(password, boss['password']))
+        return createToken(boss, 'admin');
+      else
+        throw new Error('Boss Password Incorrect')
+    } else {
+      return createToken(boss, 'admin')
+    }
+  }
+
+  if (nickname) {
+    let boss = await createBoss({ name, username: nickname, email, password });
+    return createToken(boss, 'admin')
+  }
+
+  throw new Error('User Not Exist')
+
+}
+
+//   try {
+//     let boss = await Boss.findOne({ where: { email: email } });
+
+//     // console.log('***********PASSWORD********', password)
+//     if (!boss) {
+//       let salesman = await Salesman.findOne({ where: { email: email } });
+//       if (bcrypt.compareSync(password, salesman.dataValues['password'])) {
+//         const token = jwt.sign({
+//           exp: Math.floor(Date.now()/1000) * 60 * 60 * 24 * 7,
+//           ...salesman.dataValues,
+//           role: "seller"
+//         }, "secret")
+//         return {success:true, token};
+//       }
+//       // if (password === salesman.dataValues.password) {
+//       //   return { ...salesman.dataValues, role: "seller" };
+//       // }
 //     }
-//   }
 
-//   let boss = await Boss.findOne({ where: { email: email } });
-//   if (boss !== null) {
-//     if (password !== null) {
-//       if (bcrypt.compareSync(password, boss['password']))
-//         return { ...boss.dataValues, role: "admin" };
-//       else
-//         throw new Error('Boss Password Incorrect')
-//     } else {
-//       return { ...boss.dataValues, role: "admin" };
+//     if (bcrypt.compareSync(password, boss.dataValues['password'])) {
+//       const token = jwt.sign({
+//         exp: Math.floor(Date.now()/1000) * 60 * 60 * 24 * 7,
+//         ...boss.dataValues,
+//         role: "admin"
+//       }, "secret")
+//       return {success:true, token};
 //     }
+//     // if (password === boss.dataValues.password) {
+//     //   return { ...boss.dataValues, role: "admin" };
+//     // }
+//   } catch (error) {
+//     return { error: error.message }
 //   }
-
-//   throw new Error('User Not Exist')
-// } else {
-//   if (!name || !username)
-//     data = { name: email, username: email, email, password }
-//   else
-//     data = { name, username, email, password }
-//   const boss = await createBoss(data);
-//   const jefe = { ...boss.dataValues }
-//   jefe.role = 'admin'
-//   return jefe
 // }
+
+
+
+
