@@ -73,9 +73,9 @@ const sendMail = async (salesman, boss) => {
                 </p>
             </td>
           </tr>
-          <tr>
 
-            
+          
+          <tr>            
             <td style="padding:30px;background:#00002d;">
               <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;">
                 <tr>

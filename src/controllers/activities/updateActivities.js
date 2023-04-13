@@ -7,6 +7,8 @@ const { sendMail } = require("../email/notifyActivityClient.js");
 module.exports = async (data) => {
   //data={id,method,state,from,to,message,subject,attached,saleman_id,***sale_id}
   const dataAct = { ...data };
+  let state = await Activity.findOne({ where: { id: data.id } });
+  let statePrev = state.dataValues.state;
   const id = dataAct.id;
   delete dataAct.id;
   const [resultado] = await Activity.update(dataAct, {
@@ -22,7 +24,8 @@ module.exports = async (data) => {
 
     const cliente = await getClientById(activity.clientId);
 
-    sendMail(vendedor, cliente, activity.dataValues, "cambio");
+    let infoActivity = { ...activity.dataValues, statePrev };
+    sendMail(vendedor, cliente, infoActivity, "cambio");
 
     return activity;
   } else throw new Error("Failed to update, missing information");
