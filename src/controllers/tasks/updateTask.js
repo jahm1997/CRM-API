@@ -3,7 +3,8 @@ const getTasks = require('./getTasks.js')
 
 module.exports = async (data) => {
     //data={id,method,state,from,to,message,subject,attached,saleman_id,***sale_id}
-    const dataAct = { ...data }
+    const date = new Date(data.due_date)
+    const dataAct = { ...data, due_date: date }
     const id = dataAct.id
     delete dataAct.id
     const [resultado] = await Task.update(dataAct, {
@@ -14,7 +15,7 @@ module.exports = async (data) => {
 
     console.log(resultado)
     if (resultado) {
-        const task = await getTasks({id})
+        const task = await getTasks({ id })
         return task
     }
     else
