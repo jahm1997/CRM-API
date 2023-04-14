@@ -93,7 +93,7 @@ const captureOrder = async (req, res) => {
 
     const data = {id: id, enable: true};
     const respuesta = await updateBoss(data);
-    // console.log(respuesta);
+    console.log(respuesta);
 
     // console.log(response.data)
 
