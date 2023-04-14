@@ -1,5 +1,12 @@
-const { Sale_product, Product } = require("../../db.js");
+const {
+  Sale_product,
+  Product,
+  Client,
+  Activity,
+  Salesman,
+} = require("../../db.js");
 const Sequelize = require("sequelize");
+const { sendMail } = require("../email/notifyBuyClient.js");
 
 module.exports = async (data) => {
   //data={ quantity_sale, price_sale, productId, activityId }
@@ -16,8 +23,18 @@ module.exports = async (data) => {
       data["price_sale"] =
         data.price_sale - data.price_sale * (product.dataValues.discount / 100);
     }
-    console.log("dataPriceSale", data["price_sale"]);
+
     const newSaleProduct = await Sale_product.create(data);
+
+    let act = (await Activity.findOne({ where: { id: data.activityId } }))
+      .dataValues;
+    let client = (await Client.findOne({ where: { id: act.clientId } }))
+      .dataValues;
+    let salesman = (await Salesman.findOne({ where: { id: act.salesmanId } }))
+      .dataValues;
+    //Debe recibir (client, salesman, product, sale_product)
+
+    sendMail(client, salesman, product.dataValues, data);
 
     //Product ======> (id, name, quantity,cost_price, sale_price, discount)
     await Product.update(

@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-// NOTIFICACION AL JEFE DE NUEVO VENDEDOR REGISTRADO
+// NOTIFICACION AL JEFE QUE REALIZO SU PAGO CORRECTAMENTE
 
 const createTrans = () => {
   const transporter = nodemailer.createTransport({
@@ -13,14 +13,14 @@ const createTrans = () => {
   return transporter;
 };
 
-const sendMail = async (salesman, boss) => {
+const sendMail = async (boss, pay) => {
   // revisar quien es user
   const transporter = createTrans();
   const info = await transporter.sendMail({
     from: '"Equipo de desarrollo CRM" <pfcrm23@gmail.com>',
-    to: boss.email, //Se supone que es el correo del jefe
-    subject: `Nuevo Registro de Vendedor!`,
-    text: `Cambios en tu plataforma CRM`, // plain text body
+    to: "pfcrm23@gmail.com", //Se supone que es el correo del jefe, es igual que el de PayPal?
+    subject: `Su pago se ha realizado correctamente!`,
+    text: `Pago del Servicio CRM`, // plain text body
     html: `<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
     <head>
       <meta charset="UTF-8">
@@ -55,20 +55,36 @@ const sendMail = async (salesman, boss) => {
         </tr>
 
           <tr>
-            <td style="padding:36px 30px 42px 30px;">
+            <td style="padding:36px 30px 42px 30px; color:black;">
                 <p style="font-size: 18px">
-                    <span style="font-size: 28px">Hola!! <i>${boss.name}</i></span>.<br>
+                    <span style="font-size: 28px; color:black;">Hola!! <i>${
+                      pay.payment_source.paypal.name.given_name
+                    } ${pay.payment_source.paypal.name.surname}</i></span>.<br>
                     <hr>
-                    <span style="font-size: 18px; margin-top: 10px;"> Se ha registrado el vendedor <b>${salesman.name}</b> a tu plataforma, te <b>invitamos</b> a <i>completar el perfil del vendedor</i> que haz añadido a tu empresa.</span>
+                    <span style="font-size: 18px; margin-top: 10px; color:black;"> <b>Su pago ha sido completado correctamente!</b> Gracias por confiar en nuestro CRM!</span>
                 </p>
                 <p style="font-size: 18px">
-                    Puedes comunicarte con tu vendedor, para comunicarle los <b>datos de su cuenta</b>, te recordamos que la contraseña viene por <b>default</b> por lo que se <b><i>recomienda</i> que la modifique!</b>
+                    A continuación se mostrarán los <b>detalles del pago</b>:
                 </p>
-                    <ul style="font-size: 20px; border: 1px solid black; border-radius: 10px; padding-top: 20px; padding-bottom: 20px; width: 60%; padding-right: 10px; padding-left: 30px; margin: auto;">
-                        <li> <span style="font-weight: bold">Email:</span> ${salesman.email} </li>
-                        <li> <span style="font-weight: bold">Password:</span> ${salesman.password}</li>
-                    </ul>
+
+                <ul style="font-size: 18px; color:black;">
+                    <li><b>Método de pago:</b> PayPal</li>
+                    <li><b>Nombre:</b> ${
+                      pay.payment_source.paypal.name.given_name
+                    } ${pay.payment_source.paypal.name.surname}</li>
+                    <li><b>Email:</b> ${
+                      pay.payment_source.paypal.email_address
+                    }</li>
+                    <li><b>Fecha:</b> ${pay.create_time.slice(0, 10)}</li>
+                    <li><b>Hora:</b> ${pay.create_time.slice(11, 19)}</li>
+                    <li><b>Monto:</b> $${pay.amount.value} ${
+      pay.amount.currency_code
+    }</li>
+                </ul>
+                <hr>
                 <p style="text-align: end; font-size: 20px; margin-right: 40px;">
+                    <b>Saludos Cordiales.</b>
+                    <br>
                     <i><b>Éxitos!</b></I>
                 </p>
             </td>
@@ -110,4 +126,4 @@ const sendMail = async (salesman, boss) => {
   return;
 };
 
-exports.sendMail = (salesman, boss) => sendMail(salesman, boss);
+exports.sendMail = (boss, pay) => sendMail(boss, pay);

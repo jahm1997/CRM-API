@@ -1,18 +1,12 @@
 require("dotenv").config();
+const { sendMail } = require("../controllers/email/notifyPayBoss.js");
 const axios = require("axios");
 const updateBoss = require("../controllers/Bosses/updateBoss");
 const { PAYPAL_API_CLIENT, PAYPAL_API_SECRET, PAYPAL_API } = process.env;
 
 const createOrder = async (req, res) => {
-  const { cantidad, id } = req.body;
-  if (!cantidad) {
-    let cantDefault = 1;
-    let value = cantDefault * 100.00;
-    var valueStr = String(value)
-  } else {
-    let value = cantidad * 100.00;
-    var valueStr = String(value)
-  }
+  const { cantidad, monto, moneda } = req.body;
+  const clientID = 1;
 
   try {
     const order = {
@@ -29,14 +23,14 @@ const createOrder = async (req, res) => {
         brand_name: "CRM.com",
         landing_page: "LOGIN",
         user_action: "PAY_NOW",
-        return_url: `http://localhost:6972/api/capture-order?id=${id}`,
+        return_url: `https://crm.up.railway.app/api/capture-order?clientID=${clientID}`,
         cancel_url: "https://crm.up.railway.app/api/cancel-order",
       },
     };
 
-    // console.log('Soy el api client', PAYPAL_API_CLIENT);
-    // console.log('Soy el api secret',PAYPAL_API_SECRET);
-    // console.log(PAYPAL_API);
+    console.log("Soy el api client", PAYPAL_API_CLIENT);
+    console.log("Soy el api secret", PAYPAL_API_SECRET);
+    console.log(PAYPAL_API);
 
     const params = new URLSearchParams();
     params.append("grant_type", "client_credentials");
@@ -90,11 +84,9 @@ const captureOrder = async (req, res) => {
       }
     );
 
-    const data = {id: id, enable: true};
-    const respuesta = await updateBoss(data);
-    // console.log(respuesta);
+    // console.log(clientID);
 
-    // console.log(response.data.purchase_units[0].payments.captures[0].amount)
+    // console.log(response.data)
 
     res.redirect("http://localhost:3000/dashboard/perfil");
   } catch (err) {

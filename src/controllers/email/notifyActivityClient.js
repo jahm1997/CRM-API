@@ -20,7 +20,7 @@ const sendMail = async (salesman, client, activity, estado) => {
   const transporter = createTrans(); //introducir como parametro el correo y la contra del vendedor // EIMINE DE LOS PARAMMETROS DE createTrans() salesman
   const info = await transporter.sendMail({
     from: '"Equipo de desarrollo CRM" <pfcrm23@gmail.com>',
-    to: "pfcrm23@gmail.com", //Aqui se le envia al cliente RECORDAR COLOCAR `${client.email}`
+    to: client.email, //Aqui se le envia al cliente RECORDAR COLOCAR `${client.email}`
     subject:
       estado === "creacion"
         ? "Se ha registrado nueva actividad con tu vendedor!!"

@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-// NOTIFICACION AL JEFE DE NUEVO VENDEDOR REGISTRADO
+// NOTIFICACION AL DE PAGO AL CLIENTE, CUANDO EL ESTADO ESTE CONCRETADO, INFORMARLE AL CLIENTE EL PRODCUTO COMPRADO, MONTO, CANTIDAD, ETC
 
 const createTrans = () => {
   const transporter = nodemailer.createTransport({
@@ -13,14 +13,14 @@ const createTrans = () => {
   return transporter;
 };
 
-const sendMail = async (salesman, boss) => {
+const sendMail = async (client, salesman, product, sale_product) => {
   // revisar quien es user
   const transporter = createTrans();
   const info = await transporter.sendMail({
     from: '"Equipo de desarrollo CRM" <pfcrm23@gmail.com>',
-    to: boss.email, //Se supone que es el correo del jefe
-    subject: `Nuevo Registro de Vendedor!`,
-    text: `Cambios en tu plataforma CRM`, // plain text body
+    to: client.email, //Se debe de colocar el correo del cliente
+    subject: `Compra del Producto!`,
+    text: `Compra realizada correctamente!`, // plain text body
     html: `<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
     <head>
       <meta charset="UTF-8">
@@ -41,7 +41,9 @@ const sendMail = async (salesman, boss) => {
       </style>
     </head>
 
-    <body style="margin:0;padding:0;"><table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+    <body style="margin:0;padding:0;width:100%;">
+    
+    <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
     <tr>
       <td align="center" style="padding:0;">
 
@@ -57,19 +59,24 @@ const sendMail = async (salesman, boss) => {
           <tr>
             <td style="padding:36px 30px 42px 30px;">
                 <p style="font-size: 18px">
-                    <span style="font-size: 28px">Hola!! <i>${boss.name}</i></span>.<br>
-                    <hr>
-                    <span style="font-size: 18px; margin-top: 10px;"> Se ha registrado el vendedor <b>${salesman.name}</b> a tu plataforma, te <b>invitamos</b> a <i>completar el perfil del vendedor</i> que haz añadido a tu empresa.</span>
+                <span style="font-size: 28px">Hola!! <i>${client.name}</i></span>.<br>
+                <hr>
+                <span style="font-size: 18px; margin-top: 10px;"> Muchas gracias por la compra del producto!. A continuación se muestran <b>datos de la compra:</b></span>
                 </p>
-                <p style="font-size: 18px">
-                    Puedes comunicarte con tu vendedor, para comunicarle los <b>datos de su cuenta</b>, te recordamos que la contraseña viene por <b>default</b> por lo que se <b><i>recomienda</i> que la modifique!</b>
-                </p>
-                    <ul style="font-size: 20px; border: 1px solid black; border-radius: 10px; padding-top: 20px; padding-bottom: 20px; width: 60%; padding-right: 10px; padding-left: 30px; margin: auto;">
-                        <li> <span style="font-weight: bold">Email:</span> ${salesman.email} </li>
-                        <li> <span style="font-weight: bold">Password:</span> ${salesman.password}</li>
-                    </ul>
+                <ul style="font-size: 18px">
+                <li>Vendedor: ${salesman.name}</li>
+                <li>Email: ${salesman.email}</li>
+                <li>Teléfono: ${salesman.phone}</li>
+                <p>-------------------</p>
+                <li>Producto: ${product.name}</li>
+                <li>Cantidad comprada: ${sale_product.quantity_sale}</li>
+                <li>Precio total con descuento: $${sale_product.price_sale}</li>
+              </ul>
+              <hr>
                 <p style="text-align: end; font-size: 20px; margin-right: 40px;">
-                    <i><b>Éxitos!</b></I>
+                <b>Saludos Cordiales.</b>
+                <br>
+                <i><b>Éxitos!</b></I>
                 </p>
             </td>
           </tr>
@@ -98,7 +105,6 @@ const sendMail = async (salesman, boss) => {
           </tr>
           
         </table>
-
       </td>
     </tr>
   </table>
@@ -110,4 +116,5 @@ const sendMail = async (salesman, boss) => {
   return;
 };
 
-exports.sendMail = (salesman, boss) => sendMail(salesman, boss);
+exports.sendMail = (client, salesman, product, sale_product) =>
+  sendMail(client, salesman, product, sale_product);
