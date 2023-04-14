@@ -9,7 +9,7 @@ const updateBoss = async (data, path) => {
     const img = fs.readFileSync(path).buffer;
     const logo = await uploadFile(img, "boss");
     const dataAct = { ...data, logo };
-    const id = dataAct.id;
+    var id = dataAct.id;
     delete dataAct.id;
     var [resultado] = await Boss.update(dataAct, {
       where: {
@@ -18,9 +18,9 @@ const updateBoss = async (data, path) => {
     });
   } else {
     const dataAct = { ...data };
-    const id = dataAct.id;
+    var id = dataAct.id;
     delete dataAct.id;
-    var [resultado] = await Boss.update(dataAct, {
+    var resultado = await Boss.update(dataAct, {
       where: {
         id,
       },
@@ -30,7 +30,7 @@ const updateBoss = async (data, path) => {
   if (resultado) {
     const boss = await getBossById(id);
     return {
-      ...boss.datavalues,
+      ...boss,
       role: "admin",
     };
   } else throw new Error("Failed to update, missing information");
