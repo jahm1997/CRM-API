@@ -30,8 +30,8 @@ const createOrder = async (req, res) => {
         brand_name: "CRM.com",
         landing_page: "LOGIN",
         user_action: "PAY_NOW",
-        return_url: `http://localhost:6972/api/capture-order?id=${id}`,
-        cancel_url: "http://localhost:6972/api/cancel-order",
+        return_url: `https://crm2.up.railway.app/api/capture-order?id=${id}`,
+        cancel_url: "https://crm2.up.railway.app/api/cancel-order",
       },
     };
 
@@ -107,7 +107,7 @@ const captureOrder = async (req, res) => {
     //console.log(response.data.purchase_units[0].payments.captures[0].amount.value)
     // console.log(response.data)
 
-    res.redirect("http://localhost:3000/dashboard/perfil");
+    res.redirect("https://crm-henry-34b.vercel.app/dashboard/perfil");
   } catch (err) {
     // console.log(err);
     res.status(500).json({ error: err.message });
@@ -115,7 +115,7 @@ const captureOrder = async (req, res) => {
 };
 
 const cancelOrder = (req, res) => {
-  res.redirect("/api/boss");
+  res.redirect("https://crm-henry-34b.vercel.app/dashboard/perfil");
 };
 
 module.exports = {
