@@ -5,8 +5,15 @@ const updateBoss = require("../controllers/Bosses/updateBoss");
 const { PAYPAL_API_CLIENT, PAYPAL_API_SECRET, PAYPAL_API } = process.env;
 
 const createOrder = async (req, res) => {
-  const { cantidad, monto, moneda } = req.body;
-  const clientID = 1;
+  const { cantidad, id } = req.body;
+  if (!cantidad) {
+    let cantDefault = 1;
+    let value = cantDefault * 100.00;
+    var valueStr = String(value)
+  } else {
+    let value = cantidad * 100.00;
+    var valueStr = String(value)
+  }
 
   try {
     const order = {
@@ -28,9 +35,9 @@ const createOrder = async (req, res) => {
       },
     };
 
-    console.log("Soy el api client", PAYPAL_API_CLIENT);
-    console.log("Soy el api secret", PAYPAL_API_SECRET);
-    console.log(PAYPAL_API);
+    // console.log("Soy el api client", PAYPAL_API_CLIENT);
+    // console.log("Soy el api secret", PAYPAL_API_SECRET);
+    // console.log(PAYPAL_API);
 
     const params = new URLSearchParams();
     params.append("grant_type", "client_credentials");
@@ -84,7 +91,9 @@ const captureOrder = async (req, res) => {
       }
     );
 
-    // console.log(clientID);
+    const data = {id: id, enable: true};
+    const respuesta = await updateBoss(data);
+    // console.log(respuesta);
 
     // console.log(response.data)
 
