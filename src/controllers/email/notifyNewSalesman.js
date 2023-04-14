@@ -18,7 +18,7 @@ const sendMail = async (salesman, boss) => {
   const transporter = createTrans();
   const info = await transporter.sendMail({
     from: '"Equipo de desarrollo CRM" <pfcrm23@gmail.com>',
-    to: "pfcrm23@gmail.com", //Se supone que es el correo del jefe
+    to: boss.email, //Se supone que es el correo del jefe
     subject: `Nuevo Registro de Vendedor!`,
     text: `Cambios en tu plataforma CRM`, // plain text body
     html: `<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">

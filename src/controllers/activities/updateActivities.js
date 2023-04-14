@@ -24,8 +24,11 @@ module.exports = async (data) => {
 
     const cliente = await getClientById(activity.clientId);
 
+    //Solo cuando se modifica el estado de negociacion
     let infoActivity = { ...activity.dataValues, statePrev };
-    sendMail(vendedor, cliente, infoActivity, "cambio");
+    if (statePrev !== infoActivity.state) {
+      sendMail(vendedor, cliente, infoActivity, "cambio");
+    }
 
     return activity;
   } else throw new Error("Failed to update, missing information");
