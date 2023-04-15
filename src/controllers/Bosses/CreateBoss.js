@@ -22,7 +22,7 @@ const createBoss = async (data, path) => {
   }
   sendMail(newBoss);
   return {
-    ...newBoss.datavalues,
+    ...newBoss.dataValues,
     role: "admin",
   };
 };
