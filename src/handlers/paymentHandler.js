@@ -93,9 +93,18 @@ const captureOrder = async (req, res) => {
 
     const data = { id: id, enable: true };
     const respuesta = await updateBoss(data);
-    // console.log(respuesta);
 
-    // console.log(response.data)
+    // console.log(response.data.purchase_units[0].payments.captures[0]);
+    //ACABO DE PEGAR ESTE CODIGO DE NUEVO
+    let info = response.data;
+    const dataPay = {
+      ...info,
+      ...response.data.purchase_units[0].payments.captures[0],
+    };
+    // console.log(bosss);
+    sendMail(respuesta, dataPay);
+    //ACABO DE PEGAR ESTE CODIGO DE NUEVO (ENVIO DE EMAIL AL REALIZAR LA COMPRA)
+    //console.log(response.data.purchase_units[0].payments.captures[0].amount.value)
 
     res.redirect("https://crm.up.railway.app/api/dashboard/perfil");
   } catch (err) {
