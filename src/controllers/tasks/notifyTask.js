@@ -37,7 +37,8 @@ module.exports = async () => {
         data[i].state === "Pendiente" &&
         data[i].due_date.slice(0, 4) == date.slice(0, 4) &&
         data[i].due_date.slice(5, 7) == date.slice(5, 7) &&
-        data[i].due_date.slice(8, 10) - date.slice(8, 10) > 0
+        data[i].due_date.slice(8, 10) - date.slice(8, 10) >= 1 &&
+        data[i].due_date.slice(8, 10) - date.slice(8, 10) <= 2
       ) {
         task.push(data[i]);
       }
