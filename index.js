@@ -20,6 +20,14 @@
 require("dotenv").config();
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
+const cron = require("node-cron");
+const notifyTask = require("./src/controllers/tasks/notifyTask.js");
+
+cron.schedule("0 9 * * *", () => {
+  // SI COLOCAMOS * * * * * * se enviarian cada un segundo
+  // TODOS LOS DIAS A LAS 9 de la mañana
+  notifyTask();
+});
 
 const port = process.env.PORT || 6972;
 // const port = 3000;
