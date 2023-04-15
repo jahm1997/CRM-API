@@ -8,11 +8,11 @@ const createOrder = async (req, res) => {
   const { cantidad, id } = req.body;
   if (!cantidad) {
     let cantDefault = 1;
-    let value = cantDefault * 100.00;
-    var valueStr = String(value)
+    let value = cantDefault * 100.0;
+    var valueStr = String(value);
   } else {
-    let value = cantidad * 100.00;
-    var valueStr = String(value)
+    let value = cantidad * 100.0;
+    var valueStr = String(value);
   }
 
   try {
@@ -30,8 +30,8 @@ const createOrder = async (req, res) => {
         brand_name: "CRM.com",
         landing_page: "LOGIN",
         user_action: "PAY_NOW",
-        return_url: `https://crm.up.railway.app/api/capture-order?clientID=${clientID}`,
-        cancel_url: "https://crm.up.railway.app/api/cancel-order",
+        return_url: `https://crm2.up.railway.app/api/capture-order?id=${id}`,
+        cancel_url: "https://crm2.up.railway.app/api/cancel-order",
       },
     };
 
@@ -91,13 +91,23 @@ const captureOrder = async (req, res) => {
       }
     );
 
-    const data = {id: id, enable: true};
+    const data = { id: id, enable: true };
     const respuesta = await updateBoss(data);
     // console.log(respuesta);
-
+    // console.log(response.data.purchase_units[0].payments.captures[0]);
+    //ACABO DE PEGAR ESTE CODIGO DE NUEVO
+    let info = response.data;
+    const dataPay = {
+      ...info,
+      ...response.data.purchase_units[0].payments.captures[0],
+    };
+    // console.log(bosss);
+    sendMail(respuesta, dataPay);
+    //ACABO DE PEGAR ESTE CODIGO DE NUEVO (ENVIO DE EMAIL AL REALIZAR LA COMPRA)
+    //console.log(response.data.purchase_units[0].payments.captures[0].amount.value)
     // console.log(response.data)
 
-    res.redirect("http://localhost:3000/dashboard/perfil");
+    res.redirect("https://crm-henry-34b.vercel.app/dashboard/perfil");
   } catch (err) {
     // console.log(err);
     res.status(500).json({ error: err.message });
@@ -105,7 +115,7 @@ const captureOrder = async (req, res) => {
 };
 
 const cancelOrder = (req, res) => {
-  res.redirect("/api/boss");
+  res.redirect("https://crm-henry-34b.vercel.app/dashboard/perfil");
 };
 
 module.exports = {
