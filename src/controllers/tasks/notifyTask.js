@@ -50,7 +50,8 @@ module.exports = async () => {
       if (
         task[i].due_date.slice(0, 4) == date.slice(0, 4) &&
         task[i].due_date.slice(5, 7) == date.slice(5, 7) &&
-        task[i].due_date.slice(8, 10) - date.slice(8, 10) > 0
+        data[i].due_date.slice(8, 10) - date.slice(8, 10) >= 1 &&
+        data[i].due_date.slice(8, 10) - date.slice(8, 10) <= 2
       ) {
         salesman = (await Salesman.findByPk(task[i].salesmanId)).dataValues;
         client = (await Client.findByPk(task[i].clientId)).dataValues;
