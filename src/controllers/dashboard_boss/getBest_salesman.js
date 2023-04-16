@@ -31,8 +31,6 @@ module.exports = async (id) => {
       },
     ],
   });
-  console.log("Esto es sales en linea 34", sales.dataValues);
-  console.log("Esto es sales en linea 35", sales);
 
   const monthly_sales = {};
 
@@ -45,18 +43,19 @@ module.exports = async (id) => {
       monthly_sales[salesman.id] = quantitySale * priceSale;
     }
   });
-  console.log("Esto es monthly modificado", monthly_sales);
 
-  let thebest = Object.keys(monthly_sales)[0];
-  let max = Object.values(monthly_sales)[0];
-  Object.keys(monthly_sales).forEach((salesman) => {
-    if (monthly_sales[salesman] > max) {
-      max = monthly_sales[salesman];
-      thebest = salesman;
-    }
-  });
+  if (sales.length) {
+    let thebest = Object.keys(monthly_sales)[0];
+    let max = Object.values(monthly_sales)[0];
+    Object.keys(monthly_sales).forEach((salesman) => {
+      if (monthly_sales[salesman] > max) {
+        max = monthly_sales[salesman];
+        thebest = salesman;
+      }
+    });
+    return await getAllSalesman({ id: thebest });
+  }
 
-  console.log("esto es thebest linea 58", thebest);
-
-  return await getAllSalesman({ id: thebest });
+  console.log("no encontró the best", thebest);
+  return {};
 };
