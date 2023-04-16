@@ -55,7 +55,5 @@ module.exports = async (id) => {
     });
     return await getAllSalesman({ id: thebest });
   }
-
-  console.log("no encontró the best", thebest);
   return {};
 };
