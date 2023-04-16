@@ -32,6 +32,7 @@ module.exports = async (id) => {
     ],
   });
   console.log("Esto es sales en linea 34", sales.dataValues);
+  console.log("Esto es sales en linea 35", sales);
 
   const monthly_sales = {};
 
