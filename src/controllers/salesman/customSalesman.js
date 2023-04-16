@@ -1,7 +1,7 @@
 const getMonthly_sales = require("../dashboard_salesman/getMonthly_sales");
 
 module.exports = async (salesman) => {
-  const { davaValues } = salesman;
+  const { dataValues } = salesman;
   const {
     id,
     name,
@@ -19,6 +19,7 @@ module.exports = async (salesman) => {
   const sum = scores.reduce((acc, curr) => acc + curr, 0);
   const avgFeedback = sum / scores.length;
   const { total_monthly_sales } = await getMonthly_sales(id);
+
   return {
     id: id,
     name: name,

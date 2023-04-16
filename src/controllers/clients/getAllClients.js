@@ -40,6 +40,5 @@ module.exports = async ({ salesmanId, bossId }) => {
       };
     })
   );
-  console.log(resultadoFinal);
   return resultadoFinal;
 };
