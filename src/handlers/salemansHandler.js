@@ -18,6 +18,8 @@ const getSalemans = async (req, res) => {
 //----------------------------------- HANDLERS POST -----------------------------------\\
 const postSaleman = async (req, res) => {
   const data = JSON.parse(req.body.sellerData);
+  //comente lo de arriba y cambie por lo de abajo
+  // const data = req.body;
   try {
     if (data.bossId) {
       if (req.file) {
