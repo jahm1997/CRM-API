@@ -23,23 +23,23 @@ module.exports = (database) => {
       allowNull: false,
       validate: {
         is: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-        len: [10, 35],
+        len: [5, 40],
       },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: "12345",
     },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [10, 35],
+        len: [5, 35],
       },
     },
     enable: {
       type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
     image: {
       type: DataTypes.STRING,
