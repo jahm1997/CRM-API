@@ -12,10 +12,6 @@ module.exports = (database) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          is: /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
-          len: [3, 40],
-        },
       },
       username: {
         type: DataTypes.STRING,
@@ -51,6 +47,7 @@ module.exports = (database) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "12345",
+        //Agregar validación estricta (Mas de 8 caract, min 1 mayuscula, min 1 num, etc)
       },
       phone: {
         type: DataTypes.STRING,
@@ -58,16 +55,31 @@ module.exports = (database) => {
           len: [5, 35],
         },
       },
+      pay_day: {
+        type: DataTypes.STRING,
+      },
       logo: {
         type: DataTypes.STRING,
       },
       enable: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        defaultValue: false,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+        field: "created_at", // Esto es opcional para cambiar el nombre de la columna
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+        field: "updated_at", // Esto es opcional para cambiar el nombre de la columna
       },
     },
     {
-      timestamps: false,
+      timestamps: true,
     }
   );
 };
