@@ -3,6 +3,7 @@ const bosses = require("./bosses");
 const salesmans = require("./salesmans");
 const clients = require("./clients");
 const products = require("./products");
+const bcrypt = require("bcrypt");
 
 module.exports = async ({
   Activity,
@@ -13,8 +14,12 @@ module.exports = async ({
   Sale_product,
   Salesman,
 }) => {
+  let pass = "12345";
+  let password = bcrypt.hashSync(pass, 10);
   for (let i = 0; i < bosses.length; i++) {
-    const newBoss = await Boss.findOrCreate({ where: bosses[i] });
+    const newBoss = await Boss.findOrCreate({
+      where: { ...bosses[i], password },
+    });
     const salesmanArr = salesmans[i];
     const productArr = products[i];
     const activitiesArr = Object.values(activities)[i];
@@ -26,7 +31,11 @@ module.exports = async ({
     }
     for (let j = 0; j < salesmanArr.length; j++) {
       const newSalesman = await Salesman.findOrCreate({
-        where: { ...salesmanArr[j], bossId: newBoss[0].dataValues.id },
+        where: {
+          ...salesmanArr[j],
+          bossId: newBoss[0].dataValues.id,
+          password,
+        },
       });
       const clientArr = clients[j];
       console.log("****SALESMAN", [j + 1], "/", [salesmanArr.length]);
