@@ -10,7 +10,7 @@ module.exports = async (id) => {
     ],
   });
 
-  if (allProducts.length) {
+  if (allProducts !== null) {
     const products = allProducts.dataValues.products;
     let lowest_stock = products.map((p) => {
       const { name, quantity, discount } = p.dataValues;
