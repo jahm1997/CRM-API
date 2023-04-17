@@ -29,6 +29,7 @@ module.exports = async (data) => {
 
   let boss = await Boss.findOne({ where: { email: email } });
   if (boss !== null) {
+    console.log("ESTO ES BOSS EN LINEA 32 FINDUSER", boss);
     if (password !== null) {
       if (bcrypt.compareSync(password, boss["password"]))
         return createToken(boss, "admin");
