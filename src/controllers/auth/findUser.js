@@ -23,7 +23,11 @@ module.exports = async (data) => {
   if (salesman !== null) {
     if (password !== null) {
       if (bcrypt.compareSync(password, salesman.dataValues["password"]))
-        return createToken(salesman, "seller");
+        if (salesman.dataValues.enable !== false) {
+          return createToken(salesman, "seller");
+        } else {
+          throw new Error("user blocked");
+        }
       else throw new Error("Salesman Password Incorrect");
     }
   }
