@@ -16,12 +16,13 @@ const createToken = (user, role) => {
 };
 
 module.exports = async (data) => {
+  console.log(data);
   const { email, password, name, nickname } = data;
 
   let salesman = await Salesman.findOne({ where: { email: email } });
   if (salesman !== null) {
     if (password !== null) {
-      if (bcrypt.compareSync(password, salesman["password"]))
+      if (bcrypt.compareSync(password, salesman.dataValues["password"]))
         return createToken(salesman, "seller");
       else throw new Error("Salesman Password Incorrect");
     }
@@ -29,9 +30,8 @@ module.exports = async (data) => {
 
   let boss = await Boss.findOne({ where: { email: email } });
   if (boss !== null) {
-    console.log("ESTO ES BOSS EN LINEA 32 FINDUSER", boss);
     if (password !== null) {
-      if (bcrypt.compareSync(password, boss["password"]))
+      if (bcrypt.compareSync(password, boss.dataValues["password"]))
         return createToken(boss, "admin");
       else throw new Error("Boss Password Incorrect");
     } else {
@@ -44,9 +44,8 @@ module.exports = async (data) => {
       name,
       username: nickname,
       email,
-      password: 12345,
     });
-    console.log(boss);
+    console.log("Este es find user antes de mandar el token", boss);
     return createToken(boss, "admin");
   }
 
