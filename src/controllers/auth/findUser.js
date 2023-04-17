@@ -45,6 +45,7 @@ module.exports = async (data) => {
       email,
       password: 12345,
     });
+    console.log(boss);
     return createToken(boss, "admin");
   }
 
