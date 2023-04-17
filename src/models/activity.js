@@ -9,19 +9,30 @@ module.exports = (database) => {
       defaultValue: DataTypes.UUIDV4,
     },
     method: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("Correo-E", "Llamada", "E-mail", "Call"),
+      allowNull: false,
     },
     state: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("Pendiente", "Concretado", "Earring", "Concretized"),
+      allowNull: false,
     },
     from: {
       type: DataTypes.STRING,
+      validate: {
+        is: /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+        len: [3, 40],
+      },
     },
     to: {
       type: DataTypes.STRING,
+      validate: {
+        is: /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+        len: [3, 40],
+      },
     },
     message: {
       type: DataTypes.TEXT,
+      allowNull: false,
     },
     subject: {
       type: DataTypes.STRING,
