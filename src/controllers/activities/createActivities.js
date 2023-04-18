@@ -6,6 +6,7 @@ const getClientById = require("../clients/getClientById.js");
 const { where } = require("sequelize");
 
 module.exports = async (data) => {
+  console.log(data);
   //data={method,state,from,to,message,subject,attached,clientId,salesmanId,}
   if (data.salesmanId != null && data.clientId != null) {
     const newActivity = await Activity.create(data);
